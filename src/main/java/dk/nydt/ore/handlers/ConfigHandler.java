@@ -25,7 +25,24 @@ public class ConfigHandler<T extends OkaeriConfig> {
         configMap.put(config, configInstance);
     }
 
+    public void load(String config, Class<T> clazz, String folder) {
+        T configInstance = ConfigManager.create(clazz, it -> {
+            it.withConfigurer(new YamlSnakeYamlConfigurer());
+            it.withBindFile(new File(Ore.getInstance().getDataFolder() + folder, config.toLowerCase() + ".yml"));
+            it.withRemoveOrphans(false);
+            it.saveDefaults();
+            it.load();
+        });
+
+        configMap.put(config.toLowerCase(), configInstance);
+        Ore.log("!!!!!JUST FINISHED LOADING " + clazz);
+    }
+
     public T getConfig(String config) {
-        return configMap.get(config);
+        return configMap.get(config.toLowerCase());
+    }
+
+    public void reloadConfigs() {
+        configMap.forEach((key, value) -> value.load());
     }
 }

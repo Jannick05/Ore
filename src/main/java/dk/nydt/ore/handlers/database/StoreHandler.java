@@ -1,8 +1,15 @@
 package dk.nydt.ore.handlers.database;
 
+import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 import dk.nydt.ore.Ore;
+import dk.nydt.ore.handlers.database.stores.GeneratorStore;
+import dk.nydt.ore.handlers.database.stores.UserStore;
+import dk.nydt.ore.objects.User;
+import dk.nydt.ore.objects.UserGenerator;
+import lombok.Getter;
 
 import java.io.File;
 import java.sql.SQLException;
@@ -10,7 +17,8 @@ import java.util.logging.Logger;
 
 public class StoreHandler {
     private Logger logger;
-    //private static @Getter Table table;
+    private static @Getter UserStore user;
+    private static @Getter GeneratorStore generator;
 
     private ConnectionSource connectionSource;
 
@@ -22,7 +30,8 @@ public class StoreHandler {
         try {
             this.connectionSource = new JdbcConnectionSource(getConnectionUrl());
 
-            //TableUtils.createTableIfNotExists(connectionSource, Table.class);
+            TableUtils.createTableIfNotExists(connectionSource, User.class);
+            TableUtils.createTableIfNotExists(connectionSource, UserGenerator.class);
 
             logger.info(" - Connected to database");
         } catch (Exception exception) {
@@ -31,7 +40,8 @@ public class StoreHandler {
             return;
         }
 
-        //table = new Table(DaoManager.createDao(connectionSource, Table.class), this, logger);
+        user = new UserStore(DaoManager.createDao(connectionSource, User.class), this, logger);
+        generator = new GeneratorStore(DaoManager.createDao(connectionSource, UserGenerator.class), this, logger);
     }
 
     public String getConnectionUrl() {

@@ -1,6 +1,14 @@
 package dk.nydt.ore;
 
 import co.aikar.commands.PaperCommandManager;
+import dk.nydt.ore.commands.AdminCommand;
+import dk.nydt.ore.config.serializers.GeneratorSerdesPack;
+import dk.nydt.ore.config.serializers.MessageSerdesPack;
+import dk.nydt.ore.config.configs.Config;
+import dk.nydt.ore.config.configs.Generators;
+import dk.nydt.ore.config.configs.Lang;
+import dk.nydt.ore.guis.config.GUISerdesPack;
+import dk.nydt.ore.guis.config.configs.AllGenerators;
 import dk.nydt.ore.handlers.ConfigHandler;
 import dk.nydt.ore.handlers.database.StoreHandler;
 import lombok.Getter;
@@ -21,12 +29,19 @@ public final class Ore extends JavaPlugin {
     public void onEnable() {
         this.getLogger().info("--------------------");
         instance = this;
-        configHandler = new ConfigHandler<>();
-        commandManager = new PaperCommandManager(this);
 
         if (!this.getDataFolder().exists()) {
             this.getDataFolder().mkdir();
         }
+
+        commandManager = new PaperCommandManager(this);
+        new AdminCommand().init();
+
+        configHandler = new ConfigHandler<>();
+        configHandler.load("Config", Config.class, "", new MessageSerdesPack());
+        configHandler.load("Lang", Lang.class, "/lang", new MessageSerdesPack());
+        configHandler.load("Generators", Generators.class, "/generators", new GeneratorSerdesPack());
+        configHandler.load("AllGenerators", AllGenerators.class, "/guis", new GUISerdesPack());
 
         boolean database = initDatabase();
         if (!database) {

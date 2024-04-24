@@ -1,5 +1,6 @@
-package dk.nydt.ore.config;
+package dk.nydt.ore.config.serializers;
 
+import dk.nydt.ore.config.Message;
 import eu.okaeri.configs.schema.GenericsDeclaration;
 import eu.okaeri.configs.serdes.DeserializationData;
 import eu.okaeri.configs.serdes.ObjectSerializer;
@@ -21,6 +22,7 @@ public class MessageSerializer implements ObjectSerializer<Message> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Message deserialize(@NonNull DeserializationData data, @NonNull GenericsDeclaration generics) {
         return new Message((List<String>) data.getValue(List.class));
     }

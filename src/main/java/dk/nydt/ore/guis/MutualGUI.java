@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Getter
-public class MutualGUI <ConfigType extends ConfigCompliance, S extends GUIState, U extends BaseGui> {
+public abstract class MutualGUI <ConfigType extends ConfigCompliance, S extends GUIState, U extends BaseGui> {
     private U gui;
     private int rows;
     private S state;
@@ -115,7 +115,7 @@ public class MutualGUI <ConfigType extends ConfigCompliance, S extends GUIState,
     }
 
     // Events
-    public void setItems(boolean init) {}
+    public abstract void setItems(boolean init);
     public void onClick(int slot, InventoryClickEvent event) {}
     public void onAnyClick(InventoryClickEvent event) {}
     public void onDrag(InventoryDragEvent event) {}

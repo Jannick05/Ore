@@ -1,4 +1,4 @@
-package dk.nydt.ore.config;
+package dk.nydt.ore.config.serializers;
 
 import dk.nydt.ore.guis.config.item.ItemStackSerializer;
 import eu.okaeri.configs.serdes.OkaeriSerdesPack;

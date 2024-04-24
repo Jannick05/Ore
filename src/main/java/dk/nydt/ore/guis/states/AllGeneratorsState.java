@@ -4,12 +4,12 @@ import eu.okaeri.placeholders.context.PlaceholderContext;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 
-public class MainState extends GUIState {
+public class AllGeneratorsState extends GUIState {
 
     @Getter
     public int randomNumber;
 
-    public MainState(Player player, int randomNumber) {
+    public AllGeneratorsState(Player player, int randomNumber) {
         super(player);
         this.randomNumber = randomNumber;
     }

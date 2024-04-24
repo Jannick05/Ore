@@ -72,12 +72,13 @@ processResources {
 }
 
 shadowJar {
-    relocate('org.yaml.snakeyaml', 'dk.nydt.mintauktion.snakeyaml')
-    relocate('eu.okaeri', 'dk.nydt.mintauktion.okaeri')
-    relocate 'co.aikar.commands', 'dk.nydt.mintauktion.acf'
-    relocate 'co.aikar.locales', 'dk.nydt.mintauktion.locales'
-    relocate("dev.triumphteam.gui", "dk.nydt.mintauktion.gui")
-    destinationDirectory.set(file("${project.projectDir}/libs/combined"))
+    relocate('org.yaml.snakeyaml', 'dk.nydt.ore.snakeyaml')
+    relocate('eu.okaeri', 'dk.nydt.ore.okaeri')
+    relocate 'co.aikar.commands', 'dk.nydt.ore.acf'
+    relocate 'co.aikar.locales', 'dk.nydt.ore.locales'
+    relocate("dev.triumphteam.gui", "dk.nydt.ore.gui")
+    //destinationDirectory.set(file("${project.projectDir}/libs/combined"))
+    destinationDirectory.set(file("C:/Users/janni/OneDrive/Skrivebord/Lort/Minecraft/1.8 server/plugins"))
     archiveClassifier.set('')
 }
 

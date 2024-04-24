@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class BaseHandler<K, V> {
+public class BaseStore<K, V> {
 
     @Getter
     private Dao<V, K> dao;
@@ -18,7 +18,7 @@ public class BaseHandler<K, V> {
     @Getter
     public Logger logger;
 
-    public BaseHandler(Dao<V, K> dao, StoreHandler stores, Logger logger) {
+    public BaseStore(Dao<V, K> dao, StoreHandler stores, Logger logger) {
         this.dao = dao;
         this.stores = stores;
         this.logger = logger;
