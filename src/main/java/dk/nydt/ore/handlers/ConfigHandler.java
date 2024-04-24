@@ -11,18 +11,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ConfigHandler<T extends OkaeriConfig> {
+
     private Map<String, T> configMap = new HashMap<>();
+
     public void load(String config, Class<T> clazz, String folder, OkaeriSerdesPack serdesPack) {
         T configInstance = ConfigManager.create(clazz, it -> {
             it.withConfigurer(new YamlSnakeYamlConfigurer());
             it.withSerdesPack(serdesPack);
             it.withBindFile(new File(Ore.getInstance().getDataFolder() + folder, config.toLowerCase() + ".yml"));
-            it.withRemoveOrphans(true);
+            it.withRemoveOrphans(false);
             it.saveDefaults();
             it.load();
         });
 
-        configMap.put(config, configInstance);
+        configMap.put(config.toLowerCase(), configInstance);
+        Ore.log("!!!!!JUST FINISHED LOADING " + clazz);
     }
 
     public void load(String config, Class<T> clazz, String folder) {
