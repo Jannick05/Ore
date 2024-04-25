@@ -7,6 +7,7 @@ import dk.nydt.ore.config.serializers.MessageSerdesPack;
 import dk.nydt.ore.config.configs.Config;
 import dk.nydt.ore.config.configs.Generators;
 import dk.nydt.ore.config.configs.Lang;
+import dk.nydt.ore.events.GeneratorBreakEvent;
 import dk.nydt.ore.events.GeneratorPlaceEvent;
 import dk.nydt.ore.guis.config.GUISerdesPack;
 import dk.nydt.ore.guis.config.configs.AllGenerators;
@@ -46,6 +47,7 @@ public final class Ore extends JavaPlugin {
 
         //Events
         new GeneratorPlaceEvent(this);
+        new GeneratorBreakEvent(this);
 
         //Configs
         configHandler = new ConfigHandler<>();
