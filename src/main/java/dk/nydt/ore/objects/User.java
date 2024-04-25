@@ -7,8 +7,8 @@ import com.j256.ormlite.misc.BaseDaoEnabled;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Location;
 
-import javax.xml.stream.Location;
 import java.util.UUID;
 
 @DatabaseTable(tableName = "users")

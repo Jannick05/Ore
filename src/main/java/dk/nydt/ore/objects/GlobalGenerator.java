@@ -1,5 +1,6 @@
 package dk.nydt.ore.objects;
 
+import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.components.util.ItemNbt;
 import lombok.Getter;
 import lombok.var;
@@ -39,12 +40,12 @@ public class GlobalGenerator {
     }
 
     public ItemStack getItemStack() {
-        ItemStack itemStack = new ItemStack(this.material, 1);
-        ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.name);
-        itemMeta.setLore(this.lore);
-        itemStack.setItemMeta(itemMeta);
-        return ItemNbt.setString(itemStack, "generator", String.valueOf(this.tier));
+        return ItemBuilder.from(this.material)
+                .setName(this.name)
+                .setLore(this.lore)
+                .setAmount(1)
+                .setNbt("generator", String.valueOf(this.tier))
+                .build();
     }
 
 }

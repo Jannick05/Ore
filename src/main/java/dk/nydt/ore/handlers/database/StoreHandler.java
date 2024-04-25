@@ -17,8 +17,8 @@ import java.util.logging.Logger;
 
 public class StoreHandler {
     private Logger logger;
-    private static @Getter UserStore user;
-    private static @Getter GeneratorStore generator;
+    private static @Getter UserStore userStore;
+    private static @Getter GeneratorStore generatorStore;
 
     private ConnectionSource connectionSource;
 
@@ -40,8 +40,8 @@ public class StoreHandler {
             return;
         }
 
-        user = new UserStore(DaoManager.createDao(connectionSource, User.class), this, logger);
-        generator = new GeneratorStore(DaoManager.createDao(connectionSource, UserGenerator.class), this, logger);
+        userStore = new UserStore(DaoManager.createDao(connectionSource, User.class), this, logger);
+        generatorStore = new GeneratorStore(DaoManager.createDao(connectionSource, UserGenerator.class), this, logger);
     }
 
     public String getConnectionUrl() {

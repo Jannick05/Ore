@@ -19,10 +19,13 @@ public class GeneratorPlaceEvent implements Listener {
     public void onGeneratorPlace(BlockPlaceEvent event) {
         ItemStack item = event.getItemInHand();
         Player player = event.getPlayer();
-        User user = StoreHandler.getUser().getUser(player);
-        if(Integer.parseInt(ItemNbt.getString(item, "generator")) <= 0) return; //Not generator, return
+        User user = StoreHandler.getUserStore().getUser(player);
+        int tier = Integer.parseInt(ItemNbt.getString(item, "generator"));
+        if(tier >= 1) return; //Not generator, return
         if(user.getGenerators().size() >= user.getMaxGenerators()) return; //Max generators reached, return
         if(!event.canBuild()) return; //Can't build, return
 
+        user.addGenerator(tier, event.getBlock().getLocation());
+        player.sendMessage("You placed a tier " + tier + " generator!");
     }
 }
