@@ -27,7 +27,7 @@ public class Generators extends OkaeriConfig {
                     "Stone Generator",
                     Arrays.asList("Generates Stone", "Generates Stone", "Generates Stone"),
                     2,
-                    Material.WOOD,
+                    Material.STONE,
                     200,
                     100,
                     Material.STONE_BUTTON,

@@ -1,6 +1,8 @@
 package dk.nydt.ore.objects;
 
+import dev.triumphteam.gui.components.util.ItemNbt;
 import lombok.Getter;
+import lombok.var;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -42,7 +44,7 @@ public class GlobalGenerator {
         itemMeta.setDisplayName(this.name);
         itemMeta.setLore(this.lore);
         itemStack.setItemMeta(itemMeta);
-        return itemStack;
+        return ItemNbt.setString(itemStack, "generator", String.valueOf(this.tier));
     }
 
 }

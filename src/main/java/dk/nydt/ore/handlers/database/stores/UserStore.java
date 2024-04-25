@@ -4,6 +4,7 @@ import com.j256.ormlite.dao.Dao;
 import dk.nydt.ore.handlers.database.BaseStore;
 import dk.nydt.ore.handlers.database.StoreHandler;
 import dk.nydt.ore.objects.User;
+import org.bukkit.entity.Player;
 
 import java.util.logging.Logger;
 
@@ -12,5 +13,13 @@ public class UserStore extends BaseStore<Integer, User> {
 
     public UserStore(Dao<User, Integer> dao, StoreHandler stores, Logger logger) {
         super(dao, stores, logger);
+    }
+
+    public User getUser(Player player) {
+        User user = new User(player.getName(), 1, 0, 0, 1, player.getUniqueId(), 25);
+        User created = getOrPersist("uuid", user.getUuid(), user);
+        created.setName(player.getName());
+        persist(created);
+        return created;
     }
 }

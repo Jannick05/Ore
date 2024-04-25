@@ -7,6 +7,7 @@ import dk.nydt.ore.config.serializers.MessageSerdesPack;
 import dk.nydt.ore.config.configs.Config;
 import dk.nydt.ore.config.configs.Generators;
 import dk.nydt.ore.config.configs.Lang;
+import dk.nydt.ore.events.GeneratorPlaceEvent;
 import dk.nydt.ore.guis.config.GUISerdesPack;
 import dk.nydt.ore.guis.config.configs.AllGenerators;
 import dk.nydt.ore.handlers.ConfigHandler;
@@ -34,19 +35,26 @@ public final class Ore extends JavaPlugin {
         this.getLogger().info("--------------------");
         instance = this;
 
+        //Create default directories
         if (!this.getDataFolder().exists()) {
             this.getDataFolder().mkdir();
         }
 
+        //Commands
         commandManager = new PaperCommandManager(this);
         new AdminCommand().init();
 
+        //Events
+        new GeneratorPlaceEvent(this);
+
+        //Configs
         configHandler = new ConfigHandler<>();
         configHandler.load("Config", Config.class, "", new MessageSerdesPack());
         configHandler.load("Lang", Lang.class, "/lang", new MessageSerdesPack());
         configHandler.load("Generators", Generators.class, "/generators", new GeneratorSerdesPack());
         configHandler.load("AllGenerators", AllGenerators.class, "/guis", new GUISerdesPack());
 
+        //Database
         boolean database = initDatabase();
         if (!database) {
             this.getLogger().info("Failed to initialize database");
