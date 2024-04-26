@@ -23,6 +23,7 @@ repositories {
     }
     maven { url = "https://repo.aikar.co/content/groups/aikar/" }
     maven { url = "https://hub.spigotmc.org/nexus/content/groups/public/" }
+    maven { url = "https://repo.extendedclip.com/content/repositories/placeholderapi/" }
 }
 apply plugin: 'java'
 compileJava.options.encoding = 'UTF-8'
@@ -38,6 +39,7 @@ dependencies {
     implementation 'eu.okaeri:okaeri-placeholders-bukkit:5.0.1'
     implementation 'eu.okaeri:okaeri-placeholders-core:5.0.1'
     implementation 'eu.okaeri:okaeri-injector:2.1.0'
+    implementation('me.clip:placeholderapi:2.11.5')
 
     implementation 'eu.okaeri:okaeri-configs-yaml-snakeyaml:5.0.1' exclude group: "com.google"
     implementation('org.yaml:snakeyaml:2.2') {

@@ -3,6 +3,8 @@ version: '${version}'
 database: true
 api-version: 1.8
 main: dk.nydt.ore.Ore
+softdepend:
+  - PlaceholderAPI
 commands:
   admin:
     description: Admin command

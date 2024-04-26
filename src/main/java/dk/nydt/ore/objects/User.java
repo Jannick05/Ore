@@ -5,6 +5,8 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.misc.BaseDaoEnabled;
 import com.j256.ormlite.table.DatabaseTable;
+import dk.nydt.ore.handlers.database.StoreHandler;
+import dk.nydt.ore.handlers.database.stores.UserGeneratorStore;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Location;
@@ -17,9 +19,6 @@ public class User extends BaseDaoEnabled<User, Integer> {
     private int id;
     @Setter @Getter @DatabaseField(columnName = "name")
     private String name;
-    @Setter @Getter @DatabaseField(columnName = "level")
-    private int level;
-    @Setter @Getter @DatabaseField(columnName = "xp")
     private int xp;
     @Setter @Getter @DatabaseField(columnName = "prestige")
     private int prestige;
@@ -35,10 +34,8 @@ public class User extends BaseDaoEnabled<User, Integer> {
     public User() {
     }
 
-    public User(String name, int level, int xp, int prestige, double multiplier, UUID uuid, int maxGenerators) {
+    public User(String name, int prestige, double multiplier, UUID uuid, int maxGenerators) {
         this.name = name;
-        this.level = level;
-        this.xp = xp;
         this.prestige = prestige;
         this.multiplier = multiplier;
         this.uuid = uuid;
@@ -48,9 +45,5 @@ public class User extends BaseDaoEnabled<User, Integer> {
     public void addGenerator(int tier, Location location) {
         UserGenerator userGenerator = new UserGenerator(this, tier, location.toString());
         this.generators.add(userGenerator);
-    }
-
-    public void removeGenerator(UserGenerator generator) {
-        this.generators.remove(generator);
     }
 }

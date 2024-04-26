@@ -20,8 +20,9 @@ public class GeneratorPlaceEvent implements Listener {
         ItemStack item = event.getItemInHand();
         Player player = event.getPlayer();
         User user = StoreHandler.getUserStore().getUser(player);
-        int tier = Integer.parseInt(ItemNbt.getString(item, "generator"));
-        if(tier >= 1) return; //Not generator, return
+        String tierString = ItemNbt.getString(item, "generator");
+        if(tierString.equalsIgnoreCase("")) return; //Not a generator, return
+        int tier = Integer.parseInt(tierString);
         if(user.getGenerators().size() >= user.getMaxGenerators()) return; //Max generators reached, return
         if(!event.canBuild()) return; //Can't build, return
 

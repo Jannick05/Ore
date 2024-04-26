@@ -5,7 +5,7 @@ import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import dk.nydt.ore.Ore;
-import dk.nydt.ore.handlers.database.stores.GeneratorStore;
+import dk.nydt.ore.handlers.database.stores.UserGeneratorStore;
 import dk.nydt.ore.handlers.database.stores.UserStore;
 import dk.nydt.ore.objects.User;
 import dk.nydt.ore.objects.UserGenerator;
@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class StoreHandler {
     private Logger logger;
     private static @Getter UserStore userStore;
-    private static @Getter GeneratorStore generatorStore;
+    private static @Getter UserGeneratorStore userGeneratorStore;
 
     private ConnectionSource connectionSource;
 
@@ -41,7 +41,7 @@ public class StoreHandler {
         }
 
         userStore = new UserStore(DaoManager.createDao(connectionSource, User.class), this, logger);
-        generatorStore = new GeneratorStore(DaoManager.createDao(connectionSource, UserGenerator.class), this, logger);
+        userGeneratorStore = new UserGeneratorStore(DaoManager.createDao(connectionSource, UserGenerator.class), this, logger);
     }
 
     public String getConnectionUrl() {

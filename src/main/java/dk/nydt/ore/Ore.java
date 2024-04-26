@@ -14,6 +14,7 @@ import dk.nydt.ore.guis.config.configs.AllGenerators;
 import dk.nydt.ore.handlers.ConfigHandler;
 import dk.nydt.ore.handlers.database.StoreHandler;
 import dk.nydt.ore.objects.GlobalGenerator;
+import dk.nydt.ore.utils.PlaceholderUtils;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -64,6 +65,9 @@ public final class Ore extends JavaPlugin {
             this.getServer().getPluginManager().disablePlugin(this);
             return;
         }
+
+        //PlaceholderAPI
+        new PlaceholderUtils(this).register();
 
         this.getLogger().info("--------------------");
         this.getLogger().info("ADDING ALL GENERATORS NOW NISSEMAND 123");

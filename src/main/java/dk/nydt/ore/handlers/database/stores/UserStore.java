@@ -16,7 +16,7 @@ public class UserStore extends BaseStore<Integer, User> {
     }
 
     public User getUser(Player player) {
-        User user = new User(player.getName(), 1, 0, 0, 1, player.getUniqueId(), 25);
+        User user = new User(player.getName(), 0, 1, player.getUniqueId(), 25);
         User created = getOrPersist("uuid", user.getUuid(), user);
         created.setName(player.getName());
         persist(created);
