@@ -5,8 +5,6 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.misc.BaseDaoEnabled;
 import com.j256.ormlite.table.DatabaseTable;
-import dk.nydt.ore.handlers.database.StoreHandler;
-import dk.nydt.ore.handlers.database.stores.UserGeneratorStore;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Location;
@@ -37,7 +35,7 @@ public class User extends BaseDaoEnabled<User, Integer> {
     @Setter @Getter @ForeignCollectionField(eager = true, columnName = "generators")
     private ForeignCollection<UserGenerator> generators;
 
-    @Setter @Getter @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "sell_chests")
+    @Setter @Getter @DatabaseField(foreign = true, columnName = "sell_chests")
     private SellChest sellChest;
 
     public User() {
@@ -55,4 +53,5 @@ public class User extends BaseDaoEnabled<User, Integer> {
         UserGenerator userGenerator = new UserGenerator(this, tier, location);
         this.generators.add(userGenerator);
     }
+
 }

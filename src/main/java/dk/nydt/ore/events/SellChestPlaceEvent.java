@@ -28,7 +28,7 @@ public class SellChestPlaceEvent implements Listener {
             event.setCancelled(true);
             return;
         }
-        StoreHandler.getUserStore().setSellChest(user, new SellChest(user, event.getBlock().getLocation()));
+        StoreHandler.getUserStore().setSellChest(user, event.getBlock().getLocation());
         player.sendMessage("You placed a sell chest!");
     }
 }

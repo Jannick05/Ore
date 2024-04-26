@@ -32,7 +32,11 @@ public class SellChestStore extends BaseStore<Integer, SellChest> {
         SellChest sellChest = user.getSellChest();
         if (sellChest == null) return;
 
-        sellChest.addSellableItem(new Sellable(sellChest, tier));
+        if(sellChest.getItems().stream().anyMatch(sellable -> sellable.getTier() == tier)) {
+            sellChest.getItems().stream().filter(sellable -> sellable.getTier() == tier).findFirst().get().setAmount(sellChest.getItems().stream().filter(sellable -> sellable.getTier() == tier).findFirst().get().getAmount() + 1);
+        } else {
+            sellChest.addSellableItem(new Sellable(sellChest, tier, 1));
+        }
         persist(sellChest);
     }
 

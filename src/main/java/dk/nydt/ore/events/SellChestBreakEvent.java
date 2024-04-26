@@ -17,7 +17,7 @@ public class SellChestBreakEvent implements Listener {
     public void onSellChestBreak(BlockBreakEvent event) {
         SellChestStore sellChestStore = StoreHandler.getSellChestStore();
         SellChest sellChest = sellChestStore.getSellChestAtLocation(event.getBlock().getLocation()).orElse(null);
-        if(sellChest == null) return; //Not a generator, return
+        if(sellChest == null) return; //Not a sellchest, return
         event.setCancelled(true);
     }
 }

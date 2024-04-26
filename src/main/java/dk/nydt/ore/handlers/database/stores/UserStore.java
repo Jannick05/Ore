@@ -5,6 +5,7 @@ import dk.nydt.ore.handlers.database.BaseStore;
 import dk.nydt.ore.handlers.database.StoreHandler;
 import dk.nydt.ore.objects.SellChest;
 import dk.nydt.ore.objects.User;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.util.logging.Logger;
@@ -24,8 +25,8 @@ public class UserStore extends BaseStore<Integer, User> {
         return created;
     }
 
-    public void setSellChest(User user, SellChest sellChest) {
-        user.setSellChest(sellChest);
+    public void setSellChest(User user, Location location) {
+        user.setSellChest(new SellChest(user, location));
         persist(user);
     }
 }

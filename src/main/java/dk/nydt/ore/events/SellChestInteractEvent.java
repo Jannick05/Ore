@@ -45,12 +45,12 @@ public class SellChestInteractEvent implements Listener {
     @EventHandler
     public void onSellChestRemove(PlayerInteractEvent event) {
         if (!(event.getAction() == Action.LEFT_CLICK_BLOCK)) return;
-        if (event.getClickedBlock() == null) return;
+        if (!event.getClickedBlock().getType().equals(Material.ENDER_CHEST)) return;
         Player player = event.getPlayer();
         User user = StoreHandler.getUserStore().getUser(player);
 
         SellChest sellChest = sellChestStore.getSellChestAtLocation(event.getClickedBlock().getLocation()).orElse(null);
-        if(sellChest == null) return; //Not a generator, return
+        if(sellChest == null) return; //Not a sellchest, return
 
 
         if(sellChest.getUser().getUuid().equals(user.getUuid())) {

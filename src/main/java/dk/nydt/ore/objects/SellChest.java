@@ -17,7 +17,7 @@ public class SellChest extends BaseDaoEnabled<SellChest, Integer> {
     @DatabaseField(generatedId = true, columnName = "id")
     private int id;
 
-    @Getter @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "user")
+    @Getter @DatabaseField(foreign = true, columnName = "user")
     private User user;
 
     @Getter @DatabaseField(columnName = "location")
