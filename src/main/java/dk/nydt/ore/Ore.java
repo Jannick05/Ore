@@ -47,6 +47,15 @@ public final class Ore extends JavaPlugin {
         commandManager = new PaperCommandManager(this);
         new AdminCommand().init();
 
+        //Database
+        boolean database = initDatabase();
+        if (!database) {
+            this.getLogger().info("Failed to initialize database");
+            this.getLogger().info("Disabling plugin");
+            this.getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+
         //Events
         new GeneratorPlaceEvent(this);
         new GeneratorBreakEvent(this);
@@ -61,15 +70,6 @@ public final class Ore extends JavaPlugin {
         configHandler.load("Lang", Lang.class, "/lang", new MessageSerdesPack());
         configHandler.load("Generators", Generators.class, "/generators", new GeneratorSerdesPack());
         configHandler.load("AllGenerators", AllGenerators.class, "/guis", new GUISerdesPack());
-
-        //Database
-        boolean database = initDatabase();
-        if (!database) {
-            this.getLogger().info("Failed to initialize database");
-            this.getLogger().info("Disabling plugin");
-            this.getServer().getPluginManager().disablePlugin(this);
-            return;
-        }
 
         //PlaceholderAPI
         new PlaceholderUtils(this).register();

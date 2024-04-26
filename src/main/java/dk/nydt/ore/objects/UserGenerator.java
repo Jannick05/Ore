@@ -17,14 +17,16 @@ import org.bukkit.util.Vector;
 
 @DatabaseTable(tableName = "user_generators")
 public class UserGenerator extends BaseDaoEnabled<UserGenerator, Integer> {
-    @Getter
-    @DatabaseField(generatedId = true, columnName = "id")
+
+    @Getter @DatabaseField(generatedId = true, columnName = "id")
     private int id;
+
     @Getter @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "user")
     private User user;
 
     @Setter @Getter @DatabaseField(columnName = "tier")
     private int tier;
+
     @Getter @DatabaseField(columnName = "location")
     private String location;
 

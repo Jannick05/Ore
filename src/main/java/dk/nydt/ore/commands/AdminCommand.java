@@ -6,6 +6,7 @@ import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
 import dk.nydt.ore.Ore;
 import dk.nydt.ore.commands.subcommands.AdminAllGenerators;
+import dk.nydt.ore.commands.subcommands.AdminGetSellChest;
 import dk.nydt.ore.commands.subcommands.AdminReload;
 import dk.nydt.ore.config.configs.Generators;
 import org.bukkit.Bukkit;
@@ -21,6 +22,7 @@ public class AdminCommand extends BaseCommand {
         Ore.log("Registering " + this.getClass().getSimpleName());
         commands.add(new AdminAllGenerators());
         commands.add(new AdminReload());
+        commands.add(new AdminGetSellChest());
         registerCommands();
     }
 

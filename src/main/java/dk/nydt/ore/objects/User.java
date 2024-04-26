@@ -15,19 +15,25 @@ import java.util.UUID;
 
 @DatabaseTable(tableName = "users")
 public class User extends BaseDaoEnabled<User, Integer> {
+
     @Setter @Getter @DatabaseField(generatedId = true, columnName = "id")
     private int id;
+
     @Setter @Getter @DatabaseField(columnName = "name")
     private String name;
 
     @Setter @Getter @DatabaseField(columnName = "prestige")
     private int prestige;
+
     @Setter @Getter @DatabaseField(columnName = "multiplier")
     private double multiplier;
+
     @Setter @Getter @DatabaseField(columnName = "uuid")
     private UUID uuid;
+
     @Setter @Getter @DatabaseField(columnName = "max_generators")
     private int maxGenerators;
+
     @Setter @Getter @ForeignCollectionField(eager = true, columnName = "generators")
     private ForeignCollection<UserGenerator> generators;
 

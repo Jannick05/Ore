@@ -15,6 +15,7 @@ public class GeneratorPlaceEvent implements Listener {
     public GeneratorPlaceEvent(Ore plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
+
     @EventHandler
     public void onGeneratorPlace(BlockPlaceEvent event) {
         ItemStack item = event.getItemInHand();
