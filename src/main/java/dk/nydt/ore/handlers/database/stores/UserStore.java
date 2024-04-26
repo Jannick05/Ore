@@ -3,6 +3,7 @@ package dk.nydt.ore.handlers.database.stores;
 import com.j256.ormlite.dao.Dao;
 import dk.nydt.ore.handlers.database.BaseStore;
 import dk.nydt.ore.handlers.database.StoreHandler;
+import dk.nydt.ore.objects.SellChest;
 import dk.nydt.ore.objects.User;
 import org.bukkit.entity.Player;
 
@@ -21,5 +22,10 @@ public class UserStore extends BaseStore<Integer, User> {
         created.setName(player.getName());
         persist(created);
         return created;
+    }
+
+    public void setSellChest(User user, SellChest sellChest) {
+        user.setSellChest(sellChest);
+        persist(user);
     }
 }

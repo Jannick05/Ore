@@ -19,7 +19,7 @@ public class User extends BaseDaoEnabled<User, Integer> {
     private int id;
     @Setter @Getter @DatabaseField(columnName = "name")
     private String name;
-    private int xp;
+
     @Setter @Getter @DatabaseField(columnName = "prestige")
     private int prestige;
     @Setter @Getter @DatabaseField(columnName = "multiplier")
@@ -30,6 +30,9 @@ public class User extends BaseDaoEnabled<User, Integer> {
     private int maxGenerators;
     @Setter @Getter @ForeignCollectionField(eager = true, columnName = "generators")
     private ForeignCollection<UserGenerator> generators;
+
+    @Setter @Getter @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "sell_chests")
+    private SellChest sellChest;
 
     public User() {
     }
@@ -43,7 +46,7 @@ public class User extends BaseDaoEnabled<User, Integer> {
     }
 
     public void addGenerator(int tier, Location location) {
-        UserGenerator userGenerator = new UserGenerator(this, tier, location.toString());
+        UserGenerator userGenerator = new UserGenerator(this, tier, location);
         this.generators.add(userGenerator);
     }
 }

@@ -7,16 +7,17 @@ import dk.nydt.ore.config.serializers.MessageSerdesPack;
 import dk.nydt.ore.config.configs.Config;
 import dk.nydt.ore.config.configs.Generators;
 import dk.nydt.ore.config.configs.Lang;
-import dk.nydt.ore.events.GeneratorBreakEvent;
-import dk.nydt.ore.events.GeneratorPlaceEvent;
+import dk.nydt.ore.events.*;
 import dk.nydt.ore.guis.config.GUISerdesPack;
 import dk.nydt.ore.guis.config.configs.AllGenerators;
 import dk.nydt.ore.handlers.ConfigHandler;
 import dk.nydt.ore.handlers.database.StoreHandler;
 import dk.nydt.ore.objects.GlobalGenerator;
+import dk.nydt.ore.tasks.TaskGenerateDrop;
 import dk.nydt.ore.utils.PlaceholderUtils;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,10 @@ public final class Ore extends JavaPlugin {
         //Events
         new GeneratorPlaceEvent(this);
         new GeneratorBreakEvent(this);
+        new GeneratorInteractEvent(this);
+        new SellChestPlaceEvent(this);
+        new SellChestBreakEvent(this);
+        new SellChestInteractEvent(this);
 
         //Configs
         configHandler = new ConfigHandler<>();
@@ -68,6 +73,9 @@ public final class Ore extends JavaPlugin {
 
         //PlaceholderAPI
         new PlaceholderUtils(this).register();
+
+        //Start generate task
+        BukkitTask generateTask = new TaskGenerateDrop().runTaskTimerAsynchronously(this, 0, 100);
 
         this.getLogger().info("--------------------");
         this.getLogger().info("ADDING ALL GENERATORS NOW NISSEMAND 123");

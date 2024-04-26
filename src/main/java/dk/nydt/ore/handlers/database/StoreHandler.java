@@ -5,8 +5,11 @@ import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import dk.nydt.ore.Ore;
+import dk.nydt.ore.handlers.database.stores.SellChestStore;
 import dk.nydt.ore.handlers.database.stores.UserGeneratorStore;
 import dk.nydt.ore.handlers.database.stores.UserStore;
+import dk.nydt.ore.objects.SellChest;
+import dk.nydt.ore.objects.Sellable;
 import dk.nydt.ore.objects.User;
 import dk.nydt.ore.objects.UserGenerator;
 import lombok.Getter;
@@ -19,6 +22,7 @@ public class StoreHandler {
     private Logger logger;
     private static @Getter UserStore userStore;
     private static @Getter UserGeneratorStore userGeneratorStore;
+    private static @Getter SellChestStore sellChestStore;
 
     private ConnectionSource connectionSource;
 
@@ -32,6 +36,8 @@ public class StoreHandler {
 
             TableUtils.createTableIfNotExists(connectionSource, User.class);
             TableUtils.createTableIfNotExists(connectionSource, UserGenerator.class);
+            TableUtils.createTableIfNotExists(connectionSource, SellChest.class);
+            TableUtils.createTableIfNotExists(connectionSource, Sellable.class);
 
             logger.info(" - Connected to database");
         } catch (Exception exception) {
@@ -42,6 +48,7 @@ public class StoreHandler {
 
         userStore = new UserStore(DaoManager.createDao(connectionSource, User.class), this, logger);
         userGeneratorStore = new UserGeneratorStore(DaoManager.createDao(connectionSource, UserGenerator.class), this, logger);
+        sellChestStore = new SellChestStore(DaoManager.createDao(connectionSource, SellChest.class), this, logger);
     }
 
     public String getConnectionUrl() {

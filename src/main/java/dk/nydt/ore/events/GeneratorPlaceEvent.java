@@ -23,8 +23,13 @@ public class GeneratorPlaceEvent implements Listener {
         String tierString = ItemNbt.getString(item, "generator");
         if(tierString.equalsIgnoreCase("")) return; //Not a generator, return
         int tier = Integer.parseInt(tierString);
-        if(user.getGenerators().size() >= user.getMaxGenerators()) return; //Max generators reached, return
         if(!event.canBuild()) return; //Can't build, return
+
+        if(user.getGenerators().size() >= user.getMaxGenerators()) {
+            player.sendMessage("You have reached the maximum amount of generators!");
+            event.setCancelled(true);
+            return;
+        }
 
         user.addGenerator(tier, event.getBlock().getLocation());
         player.sendMessage("You placed a tier " + tier + " generator!");

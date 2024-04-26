@@ -3,7 +3,17 @@ package dk.nydt.ore.objects;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.misc.BaseDaoEnabled;
 import com.j256.ormlite.table.DatabaseTable;
+import dk.nydt.ore.Ore;
+import dk.nydt.ore.handlers.database.StoreHandler;
+import dk.nydt.ore.handlers.database.stores.SellChestStore;
+import dk.nydt.ore.utils.LocationUtils;
 import lombok.Getter;
+import lombok.Setter;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 
 @DatabaseTable(tableName = "user_generators")
 public class UserGenerator extends BaseDaoEnabled<UserGenerator, Integer> {
@@ -12,7 +22,8 @@ public class UserGenerator extends BaseDaoEnabled<UserGenerator, Integer> {
     private int id;
     @Getter @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "user")
     private User user;
-    @Getter @DatabaseField(columnName = "tier")
+
+    @Setter @Getter @DatabaseField(columnName = "tier")
     private int tier;
     @Getter @DatabaseField(columnName = "location")
     private String location;
@@ -20,9 +31,22 @@ public class UserGenerator extends BaseDaoEnabled<UserGenerator, Integer> {
     public UserGenerator() {
     }
 
-    public UserGenerator(User user, int tier, String location) {
+    public UserGenerator(User user, int tier, Location location) {
         this.user = user;
         this.tier = tier;
-        this.location = location;
+        this.location = LocationUtils.serialize(location);
+    }
+
+    public void generate() {
+        Location loc = LocationUtils.deserialize(location);
+        Bukkit.getScheduler().runTask(Ore.getInstance(), () -> {
+            loc.getWorld().dropItem(loc.clone().add(0.5, 1.5, 0.5), new ItemStack(Material.DIRT, 1)).setVelocity(new Vector(0, 0, 0));
+        });
+
+        StoreHandler.getSellChestStore().stockSellableItem(this.user, this.tier);
+    }
+
+    public void upgrade() {
+        StoreHandler.getUserGeneratorStore().upgrade(this);
     }
 }
