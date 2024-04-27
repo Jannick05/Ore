@@ -18,7 +18,7 @@ public class Sellable extends BaseDaoEnabled<Sellable, Integer> {
     @Getter @DatabaseField(generatedId = true, columnName = "id")
     private int id;
 
-    @Getter @DatabaseField(foreign = true, columnName = "sell_chests")
+    @Getter @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "sell_chests")
     private SellChest sellChest;
 
     @Getter @DatabaseField(columnName = "tier")

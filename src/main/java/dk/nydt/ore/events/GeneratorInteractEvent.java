@@ -6,6 +6,7 @@ import dk.nydt.ore.handlers.database.stores.UserGeneratorStore;
 import dk.nydt.ore.objects.GlobalGenerator;
 import dk.nydt.ore.objects.User;
 import dk.nydt.ore.objects.UserGenerator;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

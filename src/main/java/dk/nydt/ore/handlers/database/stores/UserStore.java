@@ -5,6 +5,7 @@ import dk.nydt.ore.handlers.database.BaseStore;
 import dk.nydt.ore.handlers.database.StoreHandler;
 import dk.nydt.ore.objects.SellChest;
 import dk.nydt.ore.objects.User;
+import dk.nydt.ore.objects.UserGenerator;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -25,8 +26,17 @@ public class UserStore extends BaseStore<Integer, User> {
         return created;
     }
 
+    public void addGenerator(User user, int tier, Location location) {
+        UserGenerator userGenerator = new UserGenerator(user, tier, location);
+        user.addGenerator(userGenerator);
+        StoreHandler.getUserGeneratorStore().persist(userGenerator);
+        persist(user);
+    }
+
     public void setSellChest(User user, Location location) {
-        user.setSellChest(new SellChest(user, location));
+        SellChest sellChest = new SellChest(user, location);
+        user.setSellChest(sellChest);
+        StoreHandler.getSellChestStore().persist(sellChest);
         persist(user);
     }
 }

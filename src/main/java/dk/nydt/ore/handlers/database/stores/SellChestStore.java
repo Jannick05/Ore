@@ -48,14 +48,15 @@ public class SellChestStore extends BaseStore<Integer, SellChest> {
         persist(sellChest);
     }
 
-    public void deleteSellChest(SellChest sellChest) {
+    public void deleteSellChest(User user, SellChest sellChest) {
         delete(sellChest.getId());
+        StoreHandler.getUserStore().persist(user);
     }
 
     public ItemStack getSellChestItem() {
         return ItemBuilder.from(Material.ENDER_CHEST)
-                .setName("")
-                .setLore("lore")
+                .setName("Sell Chest")
+                .setLore("Place this chest to sell items.")
                 .setAmount(1)
                 .setNbt("sellchest", "true")
                 .build();

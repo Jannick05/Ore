@@ -55,7 +55,7 @@ public class SellChestInteractEvent implements Listener {
 
         if(sellChest.getUser().getUuid().equals(user.getUuid())) {
             player.sendMessage("You broke your sellchest!");
-            sellChestStore.deleteSellChest(sellChest);
+            sellChestStore.deleteSellChest(user, sellChest);
             event.getClickedBlock().setType(Material.AIR);
             player.getInventory().addItem(sellChestStore.getSellChestItem());
         } else {

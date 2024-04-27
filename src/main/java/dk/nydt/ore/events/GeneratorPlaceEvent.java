@@ -32,7 +32,7 @@ public class GeneratorPlaceEvent implements Listener {
             return;
         }
 
-        user.addGenerator(tier, event.getBlock().getLocation());
+        StoreHandler.getUserStore().addGenerator(user, tier, event.getBlock().getLocation());
         player.sendMessage("You placed a tier " + tier + " generator!");
     }
 }

@@ -21,7 +21,7 @@ public class UserGenerator extends BaseDaoEnabled<UserGenerator, Integer> {
     @Getter @DatabaseField(generatedId = true, columnName = "id")
     private int id;
 
-    @Getter @DatabaseField(foreign = true, columnName = "user")
+    @Getter @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "user")
     private User user;
 
     @Setter @Getter @DatabaseField(columnName = "tier")

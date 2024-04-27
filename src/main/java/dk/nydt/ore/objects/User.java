@@ -35,7 +35,7 @@ public class User extends BaseDaoEnabled<User, Integer> {
     @Setter @Getter @ForeignCollectionField(eager = true, columnName = "generators")
     private ForeignCollection<UserGenerator> generators;
 
-    @Setter @Getter @DatabaseField(foreign = true, columnName = "sell_chests")
+    @Setter @Getter @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "sell_chests")
     private SellChest sellChest;
 
     public User() {
@@ -49,8 +49,7 @@ public class User extends BaseDaoEnabled<User, Integer> {
         this.maxGenerators = maxGenerators;
     }
 
-    public void addGenerator(int tier, Location location) {
-        UserGenerator userGenerator = new UserGenerator(this, tier, location);
+    public void addGenerator(UserGenerator userGenerator) {
         this.generators.add(userGenerator);
     }
 
