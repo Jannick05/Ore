@@ -41,4 +41,12 @@ public class SellChest extends BaseDaoEnabled<SellChest, Integer> {
     public void removeSellableItem(Sellable sellable) {
         items.remove(sellable);
     }
+
+    public boolean hasSellableItem(int tier) {
+        return items.stream().anyMatch(sellable -> sellable.getTier() == tier);
+    }
+
+    public Sellable getSellableItem(int tier) {
+        return items.stream().filter(sellable -> sellable.getTier() == tier).findFirst().orElse(null);
+    }
 }

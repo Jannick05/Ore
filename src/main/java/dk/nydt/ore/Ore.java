@@ -10,6 +10,7 @@ import dk.nydt.ore.config.configs.Lang;
 import dk.nydt.ore.events.*;
 import dk.nydt.ore.guis.config.GUISerdesPack;
 import dk.nydt.ore.guis.config.configs.AllGenerators;
+import dk.nydt.ore.guis.config.configs.SellChests;
 import dk.nydt.ore.handlers.ConfigHandler;
 import dk.nydt.ore.handlers.database.StoreHandler;
 import dk.nydt.ore.objects.GlobalGenerator;
@@ -70,6 +71,7 @@ public final class Ore extends JavaPlugin {
         configHandler.load("Lang", Lang.class, "/lang", new MessageSerdesPack());
         configHandler.load("Generators", Generators.class, "/generators", new GeneratorSerdesPack());
         configHandler.load("AllGenerators", AllGenerators.class, "/guis", new GUISerdesPack());
+        configHandler.load("SellChests", SellChests.class, "/guis", new GUISerdesPack());
 
         //PlaceholderAPI
         new PlaceholderUtils(this).register();

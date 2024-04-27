@@ -6,6 +6,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import dk.nydt.ore.Ore;
 import dk.nydt.ore.handlers.database.stores.SellChestStore;
+import dk.nydt.ore.handlers.database.stores.SellableStore;
 import dk.nydt.ore.handlers.database.stores.UserGeneratorStore;
 import dk.nydt.ore.handlers.database.stores.UserStore;
 import dk.nydt.ore.objects.SellChest;
@@ -23,6 +24,7 @@ public class StoreHandler {
     private static @Getter UserStore userStore;
     private static @Getter UserGeneratorStore userGeneratorStore;
     private static @Getter SellChestStore sellChestStore;
+    private static @Getter SellableStore sellableStore;
 
     private ConnectionSource connectionSource;
 
@@ -49,6 +51,7 @@ public class StoreHandler {
         userStore = new UserStore(DaoManager.createDao(connectionSource, User.class), this, logger);
         userGeneratorStore = new UserGeneratorStore(DaoManager.createDao(connectionSource, UserGenerator.class), this, logger);
         sellChestStore = new SellChestStore(DaoManager.createDao(connectionSource, SellChest.class), this, logger);
+        sellableStore = new SellableStore(DaoManager.createDao(connectionSource, Sellable.class), this, logger);
     }
 
     public String getConnectionUrl() {

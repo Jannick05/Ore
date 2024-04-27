@@ -32,11 +32,15 @@ public class SellChestStore extends BaseStore<Integer, SellChest> {
         SellChest sellChest = user.getSellChest();
         if (sellChest == null) return;
 
-        if(sellChest.getItems().stream().anyMatch(sellable -> sellable.getTier() == tier)) {
-            sellChest.getItems().stream().filter(sellable -> sellable.getTier() == tier).findFirst().get().setAmount(sellChest.getItems().stream().filter(sellable -> sellable.getTier() == tier).findFirst().get().getAmount() + 1);
+        Sellable sellable;
+        if(sellChest.hasSellableItem(tier)) {
+            sellable = sellChest.getSellableItem(tier);
+            sellable.setAmount(sellable.getAmount() + 1);
         } else {
-            sellChest.addSellableItem(new Sellable(sellChest, tier, 1));
+            sellable = new Sellable(sellChest, tier, 1);
+            sellChest.addSellableItem(sellable);
         }
+        StoreHandler.getSellableStore().persist(sellable);
         persist(sellChest);
     }
 
@@ -49,6 +53,7 @@ public class SellChestStore extends BaseStore<Integer, SellChest> {
     }
 
     public void deleteSellChest(User user, SellChest sellChest) {
+        sellChest.getItems().clear();
         delete(sellChest.getId());
         StoreHandler.getUserStore().persist(user);
     }

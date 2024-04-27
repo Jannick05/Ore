@@ -27,6 +27,7 @@ public class SellChestInteractEvent implements Listener {
         if (!(event.getAction() == Action.RIGHT_CLICK_BLOCK)) return;
         if (!event.getClickedBlock().getType().equals(Material.ENDER_CHEST)) return;
         Player player = event.getPlayer();
+        User user = StoreHandler.getUserStore().getUser(player);
         SellChest sellChest = sellChestStore.getSellChestAtLocation(event.getClickedBlock().getLocation()).orElse(null);
 
         //TODO:
@@ -34,7 +35,10 @@ public class SellChestInteractEvent implements Listener {
         // - Der skal bruges plotsquares lorte api
 
         if(sellChest == null) return; //Not a generator, return
-        if(sellChest.getUser().getUuid() != player.getUniqueId()) {
+
+        event.setCancelled(true);
+
+        if(sellChest.getUser().getUuid().equals(user.getUuid())) {
             player.sendMessage("Dette er ikke din sellchest.");
             return;
         }
