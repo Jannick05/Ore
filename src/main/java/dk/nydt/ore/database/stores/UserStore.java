@@ -35,6 +35,7 @@ public class UserStore extends BaseStore<Integer, User> {
 
     public void setSellChest(User user, Location location) {
         SellChest sellChest = new SellChest(user, location);
+        user.setSellChest(sellChest);
 
         StoreManager.getSellChestStore().persist(sellChest);
         persist(user);

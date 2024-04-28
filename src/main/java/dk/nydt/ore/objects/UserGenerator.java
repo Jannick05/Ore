@@ -33,10 +33,6 @@ public class UserGenerator extends BaseDaoEnabled<UserGenerator, Integer> {
         this.location = LocationUtils.serialize(location);
     }
 
-    public void generate() {
-        StoreManager.getSellChestStore().stockSellableItem(this.user, this.tier);
-    }
-
     public void upgrade() {
         StoreManager.getUserGeneratorStore().upgrade(this);
     }

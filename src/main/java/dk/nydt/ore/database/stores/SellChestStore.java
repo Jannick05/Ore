@@ -32,19 +32,18 @@ public class SellChestStore extends BaseStore<Integer, SellChest> {
         return StoreManager.getSellableStore().getAll("sell_chests", sellChest.getId());
     }
 
-    public void stockSellableItem(User user, int tier) {
+    public void stockSellableItem(User user, int tier, int count) {
         SellChest sellChest = user.getSellChest();
         if (sellChest == null) return;
 
         Sellable sellable;
         if(sellChest.hasSellableItem(tier)) {
             sellable = sellChest.getSellableItem(tier);
-            sellable.setAmount(sellable.getAmount() + 1);
+            sellable.setAmount(sellable.getAmount() + count);
         } else {
-            sellable = new Sellable(sellChest, tier, 1);
+            sellable = new Sellable(sellChest, tier, count);
         }
         StoreManager.getSellableStore().persist(sellable);
-        persist(sellChest);
     }
 
     public void unstockSellableItem(SellChest sellChest, Sellable sellable) {

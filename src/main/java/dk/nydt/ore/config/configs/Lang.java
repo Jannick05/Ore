@@ -27,4 +27,5 @@ public class Lang extends OkaeriConfig {
     public Message generatorRemoved = new Message("{prefix} &aDu har fjernet en generator af tier &e{tier}");
     public Message notEnoughMoney = new Message("{prefix} &cDu har ikke råd til at købe denne generator, du mangler &e{money} &cfor at købe den.");
     public Message generatorMaxPlacedReached = new Message("{prefix} &cDu har nået den maksimale mængde af generatorer du kan placere.");
+    public Message teleportToGenerator = new Message("{prefix} &aDu blev teleporteret til generatoren.");
 }

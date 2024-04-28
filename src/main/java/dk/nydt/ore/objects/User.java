@@ -71,4 +71,8 @@ public class User extends BaseDaoEnabled<User, Integer> {
         StoreManager.getUserStore().persist(this);
     }
 
+    public void generate(int tier, int count) {
+        StoreManager.getSellChestStore().stockSellableItem(this, tier, count);
+    }
+
 }
