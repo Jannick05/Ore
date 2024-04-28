@@ -30,6 +30,8 @@ import java.util.Set;
 public class SellChestMenu extends MutualGUI<SellChests, SellChestState, PaginatedGui> {
 
     private final SellChest sellChest;
+
+    private final User user;
     private final ItemStack sellableItemConfig;
 
     public SellChestMenu(Player player, SellChest sellChest) {
@@ -38,6 +40,7 @@ public class SellChestMenu extends MutualGUI<SellChests, SellChestState, Paginat
         PaginatedGui gui = create(sellChests, 5, state, Collections.emptySet());
 
         this.sellChest = sellChest;
+        this.user = StoreHandler.getUserStore().getUser(player);
         this.sellableItemConfig = sellChests.getSellableItem().getItem();
 
         disableAllInteractions();
@@ -68,7 +71,7 @@ public class SellChestMenu extends MutualGUI<SellChests, SellChestState, Paginat
                 addPaginatedItem(itemStack, state, event -> {
 
                     VaultUtils.addBalance((Player) event.getWhoClicked(), sellable.getPrice());
-                    ((Player) event.getWhoClicked()).giveExp((int) Math.round(sellable.getXP()));
+                    user.addXP(sellable.getXP());
 
                     event.getWhoClicked().sendMessage("You clicked on a tier " + sellable.getTier() + " sellable item! + " + sellable.getAmount() + "x");
                     StoreHandler.getSellChestStore().unstockSellableItem(sellChest, sellable);

@@ -44,10 +44,10 @@ public class PlaceholderUtils extends PlaceholderExpansion {
             return VaultUtils.getBalance(player)+"";
         }
         if(params.equalsIgnoreCase("level")){
-            return player.getLevel()+"";
+            return user.getLevel()+"";
         }
         if(params.equalsIgnoreCase("xp")){
-            return player.getExp()+"";
+            return user.getXp()+"";
         }
         if(params.equalsIgnoreCase("prestige")){
             return user.getPrestige()+"";
