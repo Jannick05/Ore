@@ -44,7 +44,7 @@ public class User extends BaseDaoEnabled<User, Integer> {
     @Setter @Getter @ForeignCollectionField(eager = true, columnName = "generators")
     private ForeignCollection<UserGenerator> generators;
 
-    @Setter @Getter @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "sell_chests")
+    @Setter @Getter @DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true, columnName = "sell_chests")
     private SellChest sellChest;
 
     public User() {

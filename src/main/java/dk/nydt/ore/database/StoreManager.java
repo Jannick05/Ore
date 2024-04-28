@@ -36,9 +36,9 @@ public class StoreManager {
         try {
             this.connectionSource = new JdbcConnectionSource(getConnectionUrl());
 
-            TableUtils.createTableIfNotExists(connectionSource, User.class);
-            TableUtils.createTableIfNotExists(connectionSource, UserGenerator.class);
             TableUtils.createTableIfNotExists(connectionSource, SellChest.class);
+            TableUtils.createTableIfNotExists(connectionSource, UserGenerator.class);
+            TableUtils.createTableIfNotExists(connectionSource, User.class);
             TableUtils.createTableIfNotExists(connectionSource, Sellable.class);
 
             logger.info(" - Connected to database");
