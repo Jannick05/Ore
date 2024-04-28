@@ -36,6 +36,10 @@ public class SellChestState extends GUIState {
         this.xp = sellable.getXP();
     }
 
+    public SellChestState(Player player) {
+        super(player);
+    }
+
     public void applyPlaceholder(PlaceholderContext placeholder) {
         super.applyPlaceholder(placeholder);
 
