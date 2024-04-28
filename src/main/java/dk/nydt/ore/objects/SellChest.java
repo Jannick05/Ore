@@ -34,14 +34,6 @@ public class SellChest extends BaseDaoEnabled<SellChest, Integer> {
         this.location = LocationUtils.serialize(location);
     }
 
-    public void addSellableItem(Sellable sellable) {
-        items.add(sellable);
-    }
-
-    public void removeSellableItem(Sellable sellable) {
-        items.remove(sellable);
-    }
-
     public boolean hasSellableItem(int tier) {
         return items.stream().anyMatch(sellable -> sellable.getTier() == tier);
     }

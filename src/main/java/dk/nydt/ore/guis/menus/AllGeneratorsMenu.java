@@ -41,7 +41,6 @@ public class AllGeneratorsMenu extends MutualGUI<AllGenerators, AllGeneratorsSta
         Generators generators = (Generators) Ore.getConfigHandler().getConfig("generators");
         generators.getGenerators().forEach((tier, generator) -> {
             addPaginatedItem(generator.getItemStack(), getState(), event -> {
-                event.getWhoClicked().sendMessage("You clicked on a tier " + tier + " generator!");
                 event.getWhoClicked().getInventory().addItem(generator.getItemStack());
             });
         });

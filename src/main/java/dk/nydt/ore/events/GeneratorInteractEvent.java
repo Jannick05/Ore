@@ -1,13 +1,13 @@
 package dk.nydt.ore.events;
 
 import dk.nydt.ore.Ore;
-import dk.nydt.ore.handlers.database.StoreHandler;
-import dk.nydt.ore.handlers.database.stores.UserGeneratorStore;
+import dk.nydt.ore.config.configs.Lang;
+import dk.nydt.ore.database.StoreManager;
+import dk.nydt.ore.database.stores.UserGeneratorStore;
 import dk.nydt.ore.objects.GlobalGenerator;
 import dk.nydt.ore.objects.User;
 import dk.nydt.ore.objects.UserGenerator;
 import dk.nydt.ore.utils.VaultUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,7 +21,8 @@ import java.util.UUID;
 
 public class GeneratorInteractEvent implements Listener {
 
-    private static final UserGeneratorStore userGeneratorStore = StoreHandler.getUserGeneratorStore();
+    private static final UserGeneratorStore userGeneratorStore = StoreManager.getUserGeneratorStore();
+    private static final Lang lang = (Lang) Ore.getConfigHandler().getConfig("Lang");
 
     public GeneratorInteractEvent(Ore plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
@@ -35,29 +36,29 @@ public class GeneratorInteractEvent implements Listener {
         if(event.getClickedBlock() == null) return;
 
         Player player = event.getPlayer();
-        User user = StoreHandler.getUserStore().getUser(player);
+        User user = StoreManager.getUserStore().getUser(player);
 
         UserGenerator userGenerator = userGeneratorStore.getUserGeneratorAtLocation(event.getClickedBlock().getLocation()).orElse(null);
         if(userGenerator == null) return; //Not a generator, return
 
         if(!userGenerator.getUser().getUuid().equals(user.getUuid())) {
-            player.sendMessage("You can't upgrade " + userGenerator.getUser().getName() + "'s generator!");
+            lang.getCantUpgradeOthersGenerator().send(player, "{player}", userGenerator.getUser().getName());
             return;
         }
 
         GlobalGenerator globalGenerator = userGeneratorStore.getGlobalGeneratorByTier(userGenerator.getTier() + 1);
         GlobalGenerator currentGlobalGenerator = userGeneratorStore.getGlobalGeneratorByTier(userGenerator.getTier());
         if(globalGenerator == null) {
-            player.sendMessage("You can't upgrade this generator anymore!");
+            lang.getGeneratorMaxTierReached().send(player);
             return;
         }
 
         if(!VaultUtils.hasEnough(player, (globalGenerator.getBuyValue()-currentGlobalGenerator.getBuyValue()))) {
-            player.sendMessage("You don't have enough money to upgrade your generator! You need " + (globalGenerator.getBuyValue()-currentGlobalGenerator.getBuyValue()) + " more!");
+            lang.getNotEnoughMoney().send(player, "{money}", String.valueOf((globalGenerator.getBuyValue()-currentGlobalGenerator.getBuyValue())));
             return;
         }
 
-        player.sendMessage("You upgraded your generator to tier " + globalGenerator.getTier() + "!");
+        lang.getGeneratorUpgraded().send(player, "{tier}", String.valueOf(userGenerator.getTier() + 1));
         VaultUtils.subtractBalance(player, (globalGenerator.getBuyValue()-currentGlobalGenerator.getBuyValue()));
         userGenerator.upgrade();
     }
@@ -67,20 +68,20 @@ public class GeneratorInteractEvent implements Listener {
         if (!(event.getAction() == Action.LEFT_CLICK_BLOCK)) return;
         if (event.getClickedBlock() == null) return;
         Player player = event.getPlayer();
-        User user = StoreHandler.getUserStore().getUser(player);
+        User user = StoreManager.getUserStore().getUser(player);
 
         UserGenerator userGenerator = userGeneratorStore.getUserGeneratorAtLocation(event.getClickedBlock().getLocation()).orElse(null);
         if(userGenerator == null) return; //Not a generator, return
 
         if(userGenerator.getUser().getUuid().equals(user.getUuid())) {
-            player.sendMessage("You broke your generator!");
+            lang.getGeneratorRemoved().send(player, "{tier}", String.valueOf(userGenerator.getTier()));
             userGeneratorStore.deleteGenerator(userGenerator);
             GlobalGenerator globalGenerator = userGeneratorStore.getGlobalGeneratorByTier(userGenerator.getTier());
             if(globalGenerator == null) return; //Tier doesn't exist, return
             event.getClickedBlock().setType(Material.AIR);
             player.getInventory().addItem(globalGenerator.getItemStack());
         } else {
-            player.sendMessage("You can't break " + userGenerator.getUser().getName() + "'s generator!");
+            lang.getCantBreakOthersGenerator().send(player, "{player}", userGenerator.getUser().getName());
             event.setCancelled(true);
         }
 

@@ -1,4 +1,4 @@
-package dk.nydt.ore.handlers.database;
+package dk.nydt.ore.database;
 
 import com.j256.ormlite.dao.Dao;
 import lombok.Getter;
@@ -14,11 +14,11 @@ public class BaseStore<K, V> {
     @Getter
     private Dao<V, K> dao;
     @Getter
-    private StoreHandler stores;
+    private StoreManager stores;
     @Getter
     public Logger logger;
 
-    public BaseStore(Dao<V, K> dao, StoreHandler stores, Logger logger) {
+    public BaseStore(Dao<V, K> dao, StoreManager stores, Logger logger) {
         this.dao = dao;
         this.stores = stores;
         this.logger = logger;

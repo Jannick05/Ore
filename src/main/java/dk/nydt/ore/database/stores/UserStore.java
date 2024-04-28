@@ -1,8 +1,8 @@
-package dk.nydt.ore.handlers.database.stores;
+package dk.nydt.ore.database.stores;
 
 import com.j256.ormlite.dao.Dao;
-import dk.nydt.ore.handlers.database.BaseStore;
-import dk.nydt.ore.handlers.database.StoreHandler;
+import dk.nydt.ore.database.BaseStore;
+import dk.nydt.ore.database.StoreManager;
 import dk.nydt.ore.objects.SellChest;
 import dk.nydt.ore.objects.User;
 import dk.nydt.ore.objects.UserGenerator;
@@ -12,9 +12,9 @@ import org.bukkit.entity.Player;
 import java.util.logging.Logger;
 
 public class UserStore extends BaseStore<Integer, User> {
-    private StoreHandler storeHandler;
+    private StoreManager storeHandler;
 
-    public UserStore(Dao<User, Integer> dao, StoreHandler stores, Logger logger) {
+    public UserStore(Dao<User, Integer> dao, StoreManager stores, Logger logger) {
         super(dao, stores, logger);
     }
 
@@ -28,15 +28,15 @@ public class UserStore extends BaseStore<Integer, User> {
 
     public void addGenerator(User user, int tier, Location location) {
         UserGenerator userGenerator = new UserGenerator(user, tier, location);
-        user.addGenerator(userGenerator);
-        StoreHandler.getUserGeneratorStore().persist(userGenerator);
+
+        StoreManager.getUserGeneratorStore().persist(userGenerator);
         persist(user);
     }
 
     public void setSellChest(User user, Location location) {
         SellChest sellChest = new SellChest(user, location);
-        user.setSellChest(sellChest);
-        StoreHandler.getSellChestStore().persist(sellChest);
+
+        StoreManager.getSellChestStore().persist(sellChest);
         persist(user);
     }
 }

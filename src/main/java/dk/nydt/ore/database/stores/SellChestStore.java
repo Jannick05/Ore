@@ -1,16 +1,14 @@
-package dk.nydt.ore.handlers.database.stores;
+package dk.nydt.ore.database.stores;
 
 import com.j256.ormlite.dao.Dao;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
-import dk.nydt.ore.guis.config.configs.SellChests;
-import dk.nydt.ore.handlers.database.BaseStore;
-import dk.nydt.ore.handlers.database.StoreHandler;
+import dk.nydt.ore.database.BaseStore;
+import dk.nydt.ore.database.StoreManager;
 import dk.nydt.ore.objects.SellChest;
 import dk.nydt.ore.objects.Sellable;
 import dk.nydt.ore.objects.User;
-import dk.nydt.ore.objects.UserGenerator;
 import dk.nydt.ore.utils.LocationUtils;
-import org.bukkit.Bukkit;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -20,9 +18,9 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 public class SellChestStore extends BaseStore<Integer, SellChest> {
-    private StoreHandler storeHandler;
+    private StoreManager storeHandler;
 
-    public SellChestStore(Dao<SellChest, Integer> dao, StoreHandler stores, Logger logger) {
+    public SellChestStore(Dao<SellChest, Integer> dao, StoreManager stores, Logger logger) {
         super(dao, stores, logger);
     }
 
@@ -31,7 +29,7 @@ public class SellChestStore extends BaseStore<Integer, SellChest> {
     }
 
     public List<Sellable> getContent(SellChest sellChest) {
-        return StoreHandler.getSellableStore().getAll("sell_chests", sellChest.getId());
+        return StoreManager.getSellableStore().getAll("sell_chests", sellChest.getId());
     }
 
     public void stockSellableItem(User user, int tier) {
@@ -44,29 +42,28 @@ public class SellChestStore extends BaseStore<Integer, SellChest> {
             sellable.setAmount(sellable.getAmount() + 1);
         } else {
             sellable = new Sellable(sellChest, tier, 1);
-            sellChest.addSellableItem(sellable);
         }
-        StoreHandler.getSellableStore().persist(sellable);
+        StoreManager.getSellableStore().persist(sellable);
         persist(sellChest);
     }
 
     public void unstockSellableItem(SellChest sellChest, Sellable sellable) {
         if (sellChest == null) return;
-        StoreHandler.getSellableStore().delete(sellable.getId());
+        StoreManager.getSellableStore().delete(sellable.getId());
         persist(sellChest);
     }
 
     public void deleteSellChest(User user, SellChest sellChest) {
         sellChest.getItems().clear();
         delete(sellChest.getId());
-        StoreHandler.getUserStore().persist(user);
+        StoreManager.getUserStore().persist(user);
     }
 
     public ItemStack getSellChestItem() {
         return ItemBuilder.from(Material.ENDER_CHEST)
-                .setName("Sell Chest")
-                .setLore("Place this chest to sell items.")
-                .setAmount(1)
+                .name(Component.text("Sell Chest"))
+                .lore(Component.text("Right click to place a sell chest"))
+                .amount(1)
                 .setNbt("sellchest", "true")
                 .build();
     }

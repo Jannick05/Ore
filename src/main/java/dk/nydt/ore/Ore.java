@@ -12,8 +12,7 @@ import dk.nydt.ore.guis.config.GUISerdesPack;
 import dk.nydt.ore.guis.config.configs.AllGenerators;
 import dk.nydt.ore.guis.config.configs.SellChests;
 import dk.nydt.ore.handlers.ConfigHandler;
-import dk.nydt.ore.handlers.database.StoreHandler;
-import dk.nydt.ore.objects.GlobalGenerator;
+import dk.nydt.ore.database.StoreManager;
 import dk.nydt.ore.tasks.TaskGenerateDrop;
 import dk.nydt.ore.utils.PlaceholderUtils;
 import dk.nydt.ore.utils.VaultUtils;
@@ -21,16 +20,13 @@ import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public final class Ore extends JavaPlugin {
     @Getter
     private static PaperCommandManager commandManager;
     @Getter
     private static ConfigHandler configHandler;
     @Getter
-    public static StoreHandler storeHandler;
+    public static StoreManager storeManager;
     @Getter
     private static Ore instance;
 
@@ -45,10 +41,6 @@ public final class Ore extends JavaPlugin {
             this.getDataFolder().mkdir();
         }
 
-        //Commands
-        commandManager = new PaperCommandManager(this);
-        new AdminCommand().init();
-
         //Database
         boolean database = initDatabase();
         if (!database) {
@@ -58,14 +50,6 @@ public final class Ore extends JavaPlugin {
             return;
         }
 
-        //Events
-        new GeneratorPlaceEvent(this);
-        new GeneratorBreakEvent(this);
-        new GeneratorInteractEvent(this);
-        new SellChestPlaceEvent(this);
-        new SellChestBreakEvent(this);
-        new SellChestInteractEvent(this);
-
         //Configs
         configHandler = new ConfigHandler<>();
         configHandler.load("Config", Config.class, "", new MessageSerdesPack());
@@ -73,6 +57,18 @@ public final class Ore extends JavaPlugin {
         configHandler.load("Generators", Generators.class, "/generators", new GeneratorSerdesPack());
         configHandler.load("AllGenerators", AllGenerators.class, "/guis", new GUISerdesPack());
         configHandler.load("SellChests", SellChests.class, "/guis", new GUISerdesPack());
+
+        //Commands
+        commandManager = new PaperCommandManager(this);
+        new AdminCommand().init();
+
+        //Events
+        new GeneratorPlaceEvent(this);
+        new GeneratorBreakEvent(this);
+        new GeneratorInteractEvent(this);
+        new SellChestPlaceEvent(this);
+        new SellChestBreakEvent(this);
+        new SellChestInteractEvent(this);
 
         //PlaceholderAPI
         new PlaceholderUtils(this).register();
@@ -87,13 +83,13 @@ public final class Ore extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        storeManager.closeConnection();
     }
 
     private boolean initDatabase() {
         try {
-            storeHandler = new StoreHandler();
-            storeHandler.init(this.getLogger());
+            storeManager = new StoreManager();
+            storeManager.init(this.getLogger());
             return true;
         } catch (Exception e) {
             e.printStackTrace();

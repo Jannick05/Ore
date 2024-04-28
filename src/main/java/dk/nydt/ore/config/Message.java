@@ -7,6 +7,7 @@ import dk.nydt.ore.utils.ColorUtils;
 import eu.okaeri.placeholders.context.PlaceholderContext;
 import eu.okaeri.placeholders.message.CompiledMessage;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
@@ -25,11 +26,21 @@ public class Message {
     }
 
     public void send(Player player) {
+        Lang lang = (Lang) Ore.getConfigHandler().getConfig("Lang");
         message.forEach(msg -> {
-            CompiledMessage compiledMessage = CompiledMessage.of(msg);
-            PlaceholderContext placeholder = PlaceholderContext.of(compiledMessage);
-            applyPlaceholder(placeholder);
-            player.sendMessage(ColorUtils.getColored(placeholder.apply()));
+            msg = msg.replace("{prefix}", lang.getPrefix().getMessage().get(0));
+            player.sendMessage(ColorUtils.getColored(msg));
+        });
+    }
+
+    public void send(Player player, String... replacements) {
+        Lang lang = (Lang) Ore.getConfigHandler().getConfig("Lang");
+        message.forEach(msg -> {
+            msg = msg.replace("{prefix}", lang.getPrefix().getMessage().get(0));
+            for (int i = 0; i < replacements.length; i += 2) {
+                msg = msg.replace(replacements[i], replacements[i + 1]);
+            }
+            player.sendMessage(ColorUtils.getColored(msg));
         });
     }
 

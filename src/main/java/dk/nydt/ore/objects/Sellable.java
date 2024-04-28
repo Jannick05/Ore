@@ -4,15 +4,11 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.misc.BaseDaoEnabled;
 import com.j256.ormlite.table.DatabaseTable;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
-import dk.nydt.ore.Ore;
-import dk.nydt.ore.config.configs.Generators;
-import dk.nydt.ore.handlers.database.StoreHandler;
-import dk.nydt.ore.handlers.database.stores.UserGeneratorStore;
+import dk.nydt.ore.database.StoreManager;
+import dk.nydt.ore.database.stores.UserGeneratorStore;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.Arrays;
 
 @DatabaseTable(tableName = "sellables")
 public class Sellable extends BaseDaoEnabled<Sellable, Integer> {
@@ -44,7 +40,7 @@ public class Sellable extends BaseDaoEnabled<Sellable, Integer> {
         this.amount = amount;
     }
 
-    private final UserGeneratorStore userGeneratorStore = StoreHandler.getUserGeneratorStore();
+    private final UserGeneratorStore userGeneratorStore = StoreManager.getUserGeneratorStore();
 
     public ItemStack getItemStack() {
         GlobalGenerator generator = userGeneratorStore.getGlobalGeneratorByTier(this.tier);

@@ -1,7 +1,7 @@
 package dk.nydt.ore.utils;
 
 import dk.nydt.ore.Ore;
-import dk.nydt.ore.handlers.database.StoreHandler;
+import dk.nydt.ore.database.StoreManager;
 import dk.nydt.ore.objects.User;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
@@ -38,7 +38,7 @@ public class PlaceholderUtils extends PlaceholderExpansion {
     @Override
     public String onRequest(OfflinePlayer offlinePlayer, String params) {
         Player player = (Player) offlinePlayer;
-        User user = StoreHandler.getUserStore().getUser(player);
+        User user = StoreManager.getUserStore().getUser(player);
 
         if(params.equalsIgnoreCase("balance")){
             return VaultUtils.getBalance(player)+"";
@@ -48,6 +48,9 @@ public class PlaceholderUtils extends PlaceholderExpansion {
         }
         if(params.equalsIgnoreCase("xp")){
             return user.getXp()+"";
+        }
+        if(params.equalsIgnoreCase("xpNeeded")){
+            return user.getXpNeeded()+"";
         }
         if(params.equalsIgnoreCase("prestige")){
             return user.getPrestige()+"";

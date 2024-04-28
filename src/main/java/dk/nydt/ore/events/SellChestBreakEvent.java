@@ -1,8 +1,8 @@
 package dk.nydt.ore.events;
 
 import dk.nydt.ore.Ore;
-import dk.nydt.ore.handlers.database.StoreHandler;
-import dk.nydt.ore.handlers.database.stores.SellChestStore;
+import dk.nydt.ore.database.StoreManager;
+import dk.nydt.ore.database.stores.SellChestStore;
 import dk.nydt.ore.objects.SellChest;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,7 +15,7 @@ public class SellChestBreakEvent implements Listener {
 
     @EventHandler
     public void onSellChestBreak(BlockBreakEvent event) {
-        SellChestStore sellChestStore = StoreHandler.getSellChestStore();
+        SellChestStore sellChestStore = StoreManager.getSellChestStore();
         SellChest sellChest = sellChestStore.getSellChestAtLocation(event.getBlock().getLocation()).orElse(null);
         if(sellChest == null) return; //Not a sellchest, return
         event.setCancelled(true);

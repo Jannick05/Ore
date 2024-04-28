@@ -7,6 +7,7 @@ import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.Subcommand;
 import dk.nydt.ore.Ore;
 import dk.nydt.ore.commands.ICommand;
+import dk.nydt.ore.config.configs.Lang;
 import org.bukkit.entity.Player;
 
 @CommandAlias("admin")
@@ -23,9 +24,11 @@ public class AdminReload extends BaseCommand implements ICommand {
     public void onDefault(Player player) {
         try {
             Ore.getConfigHandler().reloadConfigs();
-            player.sendMessage("§aGenindlæste alle conifgs");
+            Lang lang = (Lang) Ore.getConfigHandler().getConfig("Lang");
+            lang.getReloadSuccess().send(player);
         } catch (Exception e) {
-            player.sendMessage("§cKunne ikke genindlæse configs");
+            Lang lang = (Lang) Ore.getConfigHandler().getConfig("Lang");
+            lang.getReloadFail().send(player);
             e.printStackTrace();
         }
     }

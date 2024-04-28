@@ -6,21 +6,19 @@ import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.Subcommand;
 import dk.nydt.ore.commands.ICommand;
-import dk.nydt.ore.handlers.database.StoreHandler;
+import dk.nydt.ore.guis.menus.AllGeneratorsMenu;
 import org.bukkit.entity.Player;
 
 @CommandAlias("admin")
-@Subcommand("getSellChest")
+@Subcommand("generators|allgenerators|allgens|gens")
 @CommandPermission("ore.admin")
-public class AdminGetSellChest extends BaseCommand implements ICommand {
-
+public class AdminGenerators extends BaseCommand implements ICommand {
     @Override
     public String defaultMessage() {
-        return "gets the sell chest.";
+        return "Opens the All Generators GUI for the player.";
     }
-
     @Default
     public void onDefault(Player player) {
-        player.getInventory().addItem(StoreHandler.getSellChestStore().getSellChestItem());
+        new AllGeneratorsMenu(player).open();
     }
 }

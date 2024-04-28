@@ -1,14 +1,14 @@
-package dk.nydt.ore.handlers.database;
+package dk.nydt.ore.database;
 
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import dk.nydt.ore.Ore;
-import dk.nydt.ore.handlers.database.stores.SellChestStore;
-import dk.nydt.ore.handlers.database.stores.SellableStore;
-import dk.nydt.ore.handlers.database.stores.UserGeneratorStore;
-import dk.nydt.ore.handlers.database.stores.UserStore;
+import dk.nydt.ore.database.stores.SellChestStore;
+import dk.nydt.ore.database.stores.SellableStore;
+import dk.nydt.ore.database.stores.UserGeneratorStore;
+import dk.nydt.ore.database.stores.UserStore;
 import dk.nydt.ore.objects.SellChest;
 import dk.nydt.ore.objects.Sellable;
 import dk.nydt.ore.objects.User;
@@ -19,7 +19,7 @@ import java.io.File;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
-public class StoreHandler {
+public class StoreManager {
     private Logger logger;
     private static @Getter UserStore userStore;
     private static @Getter UserGeneratorStore userGeneratorStore;
@@ -28,7 +28,7 @@ public class StoreHandler {
 
     private ConnectionSource connectionSource;
 
-    public StoreHandler() {
+    public StoreManager() {
     }
 
     public void init(Logger logger) throws SQLException {

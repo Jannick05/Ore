@@ -5,10 +5,9 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.misc.BaseDaoEnabled;
 import com.j256.ormlite.table.DatabaseTable;
-import dk.nydt.ore.handlers.database.StoreHandler;
+import dk.nydt.ore.database.StoreManager;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.Location;
 
 import java.util.UUID;
 
@@ -69,11 +68,7 @@ public class User extends BaseDaoEnabled<User, Integer> {
             this.xp = 0;
             this.xpNeeded = this.xpNeeded * 1.5;
         }
-        StoreHandler.getUserStore().persist(this);
-    }
-
-    public void addGenerator(UserGenerator userGenerator) {
-        this.generators.add(userGenerator);
+        StoreManager.getUserStore().persist(this);
     }
 
 }

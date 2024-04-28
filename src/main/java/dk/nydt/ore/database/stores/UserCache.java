@@ -1,4 +1,4 @@
-package dk.nydt.ore.handlers.database.stores;
+package dk.nydt.ore.database.stores;
 
 
 import org.bukkit.Bukkit;

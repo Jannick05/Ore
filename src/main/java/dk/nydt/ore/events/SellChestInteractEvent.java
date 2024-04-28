@@ -1,13 +1,12 @@
 package dk.nydt.ore.events;
 
 import dk.nydt.ore.Ore;
+import dk.nydt.ore.config.configs.Lang;
 import dk.nydt.ore.guis.menus.SellChestMenu;
-import dk.nydt.ore.handlers.database.StoreHandler;
-import dk.nydt.ore.handlers.database.stores.SellChestStore;
-import dk.nydt.ore.objects.GlobalGenerator;
+import dk.nydt.ore.database.StoreManager;
+import dk.nydt.ore.database.stores.SellChestStore;
 import dk.nydt.ore.objects.SellChest;
 import dk.nydt.ore.objects.User;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,7 +16,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class SellChestInteractEvent implements Listener {
 
-    private static final SellChestStore sellChestStore = StoreHandler.getSellChestStore();
+    private static final SellChestStore sellChestStore = StoreManager.getSellChestStore();
+    private static final Lang lang = (Lang) Ore.getConfigHandler().getConfig("Lang");
 
     public SellChestInteractEvent(Ore plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
@@ -28,7 +28,7 @@ public class SellChestInteractEvent implements Listener {
         if (!(event.getAction() == Action.RIGHT_CLICK_BLOCK)) return;
         if (!event.getClickedBlock().getType().equals(Material.ENDER_CHEST)) return;
         Player player = event.getPlayer();
-        User user = StoreHandler.getUserStore().getUser(player);
+        User user = StoreManager.getUserStore().getUser(player);
         SellChest sellChest = sellChestStore.getSellChestAtLocation(event.getClickedBlock().getLocation()).orElse(null);
 
         //TODO:
@@ -40,7 +40,7 @@ public class SellChestInteractEvent implements Listener {
         event.setCancelled(true);
 
         if(!sellChest.getUser().getUuid().equals(user.getUuid())) {
-            player.sendMessage("Dette er ikke din sellchest.");
+            lang.getCantOpenOthersSellChest().send(player, "{player}", sellChest.getUser().getName());
             return;
         }
 
@@ -52,19 +52,19 @@ public class SellChestInteractEvent implements Listener {
         if (!(event.getAction() == Action.LEFT_CLICK_BLOCK)) return;
         if (!event.getClickedBlock().getType().equals(Material.ENDER_CHEST)) return;
         Player player = event.getPlayer();
-        User user = StoreHandler.getUserStore().getUser(player);
+        User user = StoreManager.getUserStore().getUser(player);
 
         SellChest sellChest = sellChestStore.getSellChestAtLocation(event.getClickedBlock().getLocation()).orElse(null);
         if(sellChest == null) return; //Not a sellchest, return
 
 
         if(sellChest.getUser().getUuid().equals(user.getUuid())) {
-            player.sendMessage("You broke your sellchest!");
+            lang.getSellChestRemoved().send(player);
             sellChestStore.deleteSellChest(user, sellChest);
             event.getClickedBlock().setType(Material.AIR);
             player.getInventory().addItem(sellChestStore.getSellChestItem());
         } else {
-            player.sendMessage("You can't interact with " + sellChest.getUser().getName() + "'s sell chest!");
+            lang.getCantRemoveOthersSellChest().send(player, "{player}", sellChest.getUser().getName());
         }
 
     }
