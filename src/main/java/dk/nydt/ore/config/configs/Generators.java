@@ -20,6 +20,7 @@ public class Generators extends OkaeriConfig {
                     Material.WOOD,
                     100,
                     50,
+                    "&6Wood",
                     Material.WOOD_BUTTON,
                     0.1
             ));
@@ -30,6 +31,7 @@ public class Generators extends OkaeriConfig {
                     Material.STONE,
                     200,
                     100,
+                    "&7Stone",
                     Material.STONE_BUTTON,
                     0.2
             ));

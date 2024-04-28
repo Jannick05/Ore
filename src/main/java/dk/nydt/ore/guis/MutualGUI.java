@@ -107,6 +107,13 @@ public abstract class MutualGUI <ConfigType extends ConfigCompliance, S extends 
         gui.open(state.getPlayer());
     }
 
+    public void update() {
+        clearItems();
+        setItems(false);
+        getGui().update();
+        state.getPlayer().updateInventory();
+    }
+
     public void initActions() {
         gui.setCloseGuiAction(this::onClose);
         gui.setDefaultClickAction(this::onAnyClick);

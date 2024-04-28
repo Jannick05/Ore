@@ -2,6 +2,7 @@ package dk.nydt.ore.handlers.database.stores;
 
 import com.j256.ormlite.dao.Dao;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
+import dk.nydt.ore.guis.config.configs.SellChests;
 import dk.nydt.ore.handlers.database.BaseStore;
 import dk.nydt.ore.handlers.database.StoreHandler;
 import dk.nydt.ore.objects.SellChest;
@@ -14,6 +15,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -26,6 +28,10 @@ public class SellChestStore extends BaseStore<Integer, SellChest> {
 
     public Optional<SellChest> getSellChestAtLocation(Location location) {
         return get("location", LocationUtils.serialize(location));
+    }
+
+    public List<Sellable> getContent(SellChest sellChest) {
+        return StoreHandler.getSellableStore().getAll("sell_chests", sellChest.getId());
     }
 
     public void stockSellableItem(User user, int tier) {
@@ -44,11 +50,9 @@ public class SellChestStore extends BaseStore<Integer, SellChest> {
         persist(sellChest);
     }
 
-    public void unstockSellableItem(User user, Sellable sellable) {
-        SellChest sellChest = user.getSellChest();
+    public void unstockSellableItem(SellChest sellChest, Sellable sellable) {
         if (sellChest == null) return;
-
-        sellChest.removeSellableItem(sellable);
+        StoreHandler.getSellableStore().delete(sellable.getId());
         persist(sellChest);
     }
 

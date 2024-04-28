@@ -12,6 +12,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Arrays;
+
 @DatabaseTable(tableName = "sellables")
 public class Sellable extends BaseDaoEnabled<Sellable, Integer> {
 
@@ -47,6 +49,11 @@ public class Sellable extends BaseDaoEnabled<Sellable, Integer> {
     public ItemStack getItemStack() {
         GlobalGenerator generator = userGeneratorStore.getGlobalGeneratorByTier(this.tier);
         return ItemBuilder.from(generator.getDropMaterial()).build();
+    }
+
+    public String getName() {
+        GlobalGenerator generator = userGeneratorStore.getGlobalGeneratorByTier(this.tier);
+        return generator.getDropMaterialName();
     }
 
     public double getPrice() {

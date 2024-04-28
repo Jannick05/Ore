@@ -6,6 +6,7 @@ import dk.nydt.ore.handlers.database.stores.UserGeneratorStore;
 import dk.nydt.ore.objects.GlobalGenerator;
 import dk.nydt.ore.objects.User;
 import dk.nydt.ore.objects.UserGenerator;
+import dk.nydt.ore.utils.VaultUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -45,12 +46,19 @@ public class GeneratorInteractEvent implements Listener {
         }
 
         GlobalGenerator globalGenerator = userGeneratorStore.getGlobalGeneratorByTier(userGenerator.getTier() + 1);
+        GlobalGenerator currentGlobalGenerator = userGeneratorStore.getGlobalGeneratorByTier(userGenerator.getTier());
         if(globalGenerator == null) {
             player.sendMessage("You can't upgrade this generator anymore!");
             return;
         }
 
+        if(!VaultUtils.hasEnough(player, (globalGenerator.getBuyValue()-currentGlobalGenerator.getBuyValue()))) {
+            player.sendMessage("You don't have enough money to upgrade your generator! You need " + (globalGenerator.getBuyValue()-currentGlobalGenerator.getBuyValue()) + " more!");
+            return;
+        }
+
         player.sendMessage("You upgraded your generator to tier " + globalGenerator.getTier() + "!");
+        VaultUtils.subtractBalance(player, (globalGenerator.getBuyValue()-currentGlobalGenerator.getBuyValue()));
         userGenerator.upgrade();
     }
 

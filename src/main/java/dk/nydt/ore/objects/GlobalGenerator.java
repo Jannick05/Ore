@@ -24,17 +24,20 @@ public class GlobalGenerator {
     @Getter
     private double dropValue;
     @Getter
+    private String dropMaterialName;
+    @Getter
     private Material dropMaterial;
     @Getter
     private double dropXP;
 
-    public GlobalGenerator(String name, List<String> lore, int tier, Material material, double buyValue, double dropValue, Material dropMaterial, double dropXP) {
+    public GlobalGenerator(String name, List<String> lore, int tier, Material material, double buyValue, double dropValue, String dropMaterialName, Material dropMaterial, double dropXP) {
         this.name = name;
         this.lore = lore;
         this.tier = tier;
         this.material = material;
         this.buyValue = buyValue;
         this.dropValue = dropValue;
+        this.dropMaterialName = dropMaterialName;
         this.dropMaterial = dropMaterial;
         this.dropXP = dropXP;
     }

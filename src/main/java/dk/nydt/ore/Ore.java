@@ -16,6 +16,7 @@ import dk.nydt.ore.handlers.database.StoreHandler;
 import dk.nydt.ore.objects.GlobalGenerator;
 import dk.nydt.ore.tasks.TaskGenerateDrop;
 import dk.nydt.ore.utils.PlaceholderUtils;
+import dk.nydt.ore.utils.VaultUtils;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
@@ -75,6 +76,7 @@ public final class Ore extends JavaPlugin {
 
         //PlaceholderAPI
         new PlaceholderUtils(this).register();
+        new VaultUtils(this).register();
 
         //Start generate task
         BukkitTask generateTask = new TaskGenerateDrop().runTaskTimerAsynchronously(this, 0, 100);

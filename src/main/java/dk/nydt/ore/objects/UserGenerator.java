@@ -40,11 +40,6 @@ public class UserGenerator extends BaseDaoEnabled<UserGenerator, Integer> {
     }
 
     public void generate() {
-        Location loc = LocationUtils.deserialize(location);
-        Bukkit.getScheduler().runTask(Ore.getInstance(), () -> {
-            loc.getWorld().dropItem(loc.clone().add(0.5, 1.5, 0.5), new ItemStack(Material.DIRT, 1)).setVelocity(new Vector(0, 0, 0));
-        });
-
         StoreHandler.getSellChestStore().stockSellableItem(this.user, this.tier);
     }
 

@@ -27,6 +27,7 @@ public class GeneratorSerializer implements ObjectSerializer<GlobalGenerator> {
         data.add("material", object.getMaterial());
         data.add("buyValue", object.getBuyValue());
         data.add("dropValue", object.getDropValue());
+        data.add("dropMaterialName", object.getDropMaterialName());
         data.add("dropMaterial", object.getDropMaterial());
         data.add("dropXP", object.getDropXP());
     }
@@ -40,10 +41,11 @@ public class GeneratorSerializer implements ObjectSerializer<GlobalGenerator> {
         Material material = Material.valueOf(data.get("material", String.class));
         double buyValue = data.get("buyValue", Double.class);
         double dropValue = data.get("dropValue", Double.class);
+        String dropMaterialName = data.get("dropMaterialName", String.class);
         Material dropMaterial = Material.valueOf(data.get("dropMaterial", String.class));
         double dropXP = data.get("dropXP", Double.class);
 
-        GlobalGenerator generator = new GlobalGenerator(name, lore, tier, material, buyValue, dropValue, dropMaterial, dropXP);
+        GlobalGenerator generator = new GlobalGenerator(name, lore, tier, material, buyValue, dropValue, dropMaterialName, dropMaterial, dropXP);
 
         return generator;
     }

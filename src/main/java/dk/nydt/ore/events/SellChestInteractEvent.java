@@ -1,6 +1,7 @@
 package dk.nydt.ore.events;
 
 import dk.nydt.ore.Ore;
+import dk.nydt.ore.guis.menus.SellChestMenu;
 import dk.nydt.ore.handlers.database.StoreHandler;
 import dk.nydt.ore.handlers.database.stores.SellChestStore;
 import dk.nydt.ore.objects.GlobalGenerator;
@@ -38,12 +39,12 @@ public class SellChestInteractEvent implements Listener {
 
         event.setCancelled(true);
 
-        if(sellChest.getUser().getUuid().equals(user.getUuid())) {
+        if(!sellChest.getUser().getUuid().equals(user.getUuid())) {
             player.sendMessage("Dette er ikke din sellchest.");
             return;
         }
 
-        player.sendMessage("Åbner menu");
+        new SellChestMenu(player, sellChest).open();
     }
 
     @EventHandler

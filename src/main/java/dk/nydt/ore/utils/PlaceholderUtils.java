@@ -40,7 +40,9 @@ public class PlaceholderUtils extends PlaceholderExpansion {
         Player player = (Player) offlinePlayer;
         User user = StoreHandler.getUserStore().getUser(player);
 
-        
+        if(params.equalsIgnoreCase("balance")){
+            return VaultUtils.getBalance(player)+"";
+        }
         if(params.equalsIgnoreCase("level")){
             return player.getLevel()+"";
         }
