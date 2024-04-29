@@ -3,10 +3,9 @@ package dk.nydt.ore.commands.subcommands;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import co.aikar.commands.bukkit.contexts.OnlinePlayer;
-import dk.nydt.ore.commands.ICommand;
+import dk.nydt.ore.commands.interfaces.ICommand;
 import dk.nydt.ore.guis.menus.AllGeneratorsMenu;
 import dk.nydt.ore.guis.menus.PlayerGeneratorsMenu;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 @CommandAlias("admin")

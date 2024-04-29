@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Optional;
 
-public class ItemStackUtil {
+public class ItemStackUtils {
 
     public static ItemStack uniteItemStacks(ItemStack item1, ItemStack item2) {
         ItemStack result = item2.clone();

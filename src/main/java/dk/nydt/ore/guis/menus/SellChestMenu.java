@@ -12,7 +12,7 @@ import dk.nydt.ore.objects.SellChest;
 import dk.nydt.ore.objects.User;
 import dk.nydt.ore.utils.ColorUtils;
 import dk.nydt.ore.utils.GuiUpdater;
-import dk.nydt.ore.utils.ItemStackUtil;
+import dk.nydt.ore.utils.ItemStackUtils;
 import dk.nydt.ore.utils.VaultUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Sound;
@@ -60,7 +60,7 @@ public class SellChestMenu extends MutualGUI<SellChests, SellChestState, Paginat
         if(!StoreManager.getSellChestStore().getContent(sellChest).isEmpty()) {
             StoreManager.getSellChestStore().getContent(sellChest).forEach(sellable -> {
 
-                ItemStack itemStack = ItemStackUtil.uniteItemStacks(sellableItemConfig.clone(), sellable.getItemStack());
+                ItemStack itemStack = ItemStackUtils.uniteItemStacks(sellableItemConfig.clone(), sellable.getItemStack());
                 SellChestState state = new SellChestState(getState().getPlayer(), sellable);
 
                 addPaginatedItem(itemStack, state, event -> {

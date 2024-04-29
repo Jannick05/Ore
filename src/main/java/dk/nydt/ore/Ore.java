@@ -2,6 +2,8 @@ package dk.nydt.ore;
 
 import co.aikar.commands.PaperCommandManager;
 import dk.nydt.ore.commands.AdminCommand;
+import dk.nydt.ore.commands.RebirthCommand;
+import dk.nydt.ore.commands.UpgradeCommand;
 import dk.nydt.ore.config.serializers.GeneratorSerdesPack;
 import dk.nydt.ore.config.serializers.MessageSerdesPack;
 import dk.nydt.ore.config.configs.Config;
@@ -63,6 +65,8 @@ public final class Ore extends JavaPlugin {
         //Commands
         commandManager = new PaperCommandManager(this);
         new AdminCommand().init();
+        new RebirthCommand().init();
+        new UpgradeCommand().init();
 
         //Events
         new GeneratorPlaceEvent(this);
@@ -77,7 +81,7 @@ public final class Ore extends JavaPlugin {
         new VaultUtils(this).register();
 
         //Start generate task
-        BukkitTask generateTask = new TaskGenerateDrop().runTaskTimerAsynchronously(this, 0, 100);
+        new TaskGenerateDrop().runTaskTimerAsynchronously(this, 0, 100);
 
         this.getLogger().info("--------------------");
         this.getLogger().info("ADDING ALL GENERATORS NOW NISSEMAND 123");

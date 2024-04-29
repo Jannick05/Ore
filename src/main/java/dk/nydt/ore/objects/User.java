@@ -20,8 +20,8 @@ public class User extends BaseDaoEnabled<User, Integer> {
     @Setter @Getter @DatabaseField(columnName = "name")
     private String name;
 
-    @Setter @Getter @DatabaseField(columnName = "prestige")
-    private int prestige;
+    @Setter @Getter @DatabaseField(columnName = "rebirth")
+    private int rebirth;
 
     @Setter @Getter @DatabaseField(columnName = "multiplier")
     private double multiplier;
@@ -34,6 +34,9 @@ public class User extends BaseDaoEnabled<User, Integer> {
 
     @Setter @Getter @DatabaseField(columnName = "level")
     private int level;
+
+    @Setter @Getter @DatabaseField(columnName = "level_needed")
+    private int levelNeeded;
 
     @Setter @Getter @DatabaseField(columnName = "uuid")
     private UUID uuid;
@@ -50,13 +53,14 @@ public class User extends BaseDaoEnabled<User, Integer> {
     public User() {
     }
 
-    public User(String name, int prestige, double xp, double xpNeeded, int level, double multiplier, UUID uuid, int maxGenerators) {
+    public User(String name, int rebirth, double xp, double xpNeeded, int level, int levelNeeded, double multiplier, UUID uuid, int maxGenerators) {
         this.name = name;
-        this.prestige = prestige;
+        this.rebirth = rebirth;
         this.multiplier = multiplier;
         this.xp = xp;
         this.xpNeeded = xpNeeded;
         this.level = level;
+        this.levelNeeded = levelNeeded;
         this.uuid = uuid;
         this.maxGenerators = maxGenerators;
     }

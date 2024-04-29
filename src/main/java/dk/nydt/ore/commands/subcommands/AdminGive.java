@@ -4,7 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import dk.nydt.ore.Ore;
-import dk.nydt.ore.commands.ICommand;
+import dk.nydt.ore.commands.interfaces.ICommand;
 import dk.nydt.ore.config.configs.Lang;
 import dk.nydt.ore.database.StoreManager;
 import org.bukkit.entity.Player;

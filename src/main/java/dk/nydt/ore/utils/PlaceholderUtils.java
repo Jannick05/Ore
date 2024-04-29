@@ -52,8 +52,8 @@ public class PlaceholderUtils extends PlaceholderExpansion {
         if(params.equalsIgnoreCase("xpNeeded")){
             return user.getXpNeeded()+"";
         }
-        if(params.equalsIgnoreCase("prestige")){
-            return user.getPrestige()+"";
+        if(params.equalsIgnoreCase("rebirth")){
+            return user.getRebirth()+"";
         }
         if(params.equalsIgnoreCase("multiplier")){
             return user.getMultiplier()+"";

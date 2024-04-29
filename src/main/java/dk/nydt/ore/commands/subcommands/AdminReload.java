@@ -6,7 +6,7 @@ import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.Subcommand;
 import dk.nydt.ore.Ore;
-import dk.nydt.ore.commands.ICommand;
+import dk.nydt.ore.commands.interfaces.ICommand;
 import dk.nydt.ore.config.configs.Lang;
 import org.bukkit.entity.Player;
 

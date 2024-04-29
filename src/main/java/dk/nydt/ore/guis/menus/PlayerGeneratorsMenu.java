@@ -13,7 +13,7 @@ import dk.nydt.ore.guis.states.PlayerGeneratorsState;
 import dk.nydt.ore.objects.UserGenerator;
 import dk.nydt.ore.utils.ColorUtils;
 import dk.nydt.ore.utils.GuiUpdater;
-import dk.nydt.ore.utils.ItemStackUtil;
+import dk.nydt.ore.utils.ItemStackUtils;
 import dk.nydt.ore.utils.LocationUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
@@ -61,7 +61,7 @@ public class PlayerGeneratorsMenu extends MutualGUI<PlayerGenerators, PlayerGene
 
                 ItemStack genItem = generators.getGenerators().get(userGenerator.getTier()).getItemStack();
                 String name = generators.getGenerators().get(userGenerator.getTier()).getName();
-                ItemStack item = ItemStackUtil.uniteItemStacks(generatorItemConfig.clone(), genItem);
+                ItemStack item = ItemStackUtils.uniteItemStacks(generatorItemConfig.clone(), genItem);
                 PlayerGeneratorsState state = new PlayerGeneratorsState(targetPlayer, name, userGenerator.getTier(), userGenerator.getLocation());
 
                 addPaginatedItem(item, state, event -> {
