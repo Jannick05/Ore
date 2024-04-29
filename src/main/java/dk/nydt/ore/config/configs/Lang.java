@@ -26,6 +26,11 @@ public class Lang extends OkaeriConfig {
     public Message generatorPlaced = new Message("{prefix} &aDu har placeret en generator af tier &e{tier}");
     public Message generatorRemoved = new Message("{prefix} &aDu har fjernet en generator af tier &e{tier}");
     public Message notEnoughMoney = new Message("{prefix} &cDu har ikke råd til at købe denne generator, du mangler &e{money} &cfor at købe den.");
+    public Message notEnoughLevel = new Message("{prefix} &cDu har ikke nået det krævede level for at udføre denne handling, du skal være i level &e{level}");
     public Message generatorMaxPlacedReached = new Message("{prefix} &cDu har nået den maksimale mængde af generatorer du kan placere.");
     public Message teleportToGenerator = new Message("{prefix} &aDu blev teleporteret til generatoren.");
+    public Message acceptRebirth = new Message("{prefix} &aSkriv kommandoen igen for at acceptere genfødslen.");
+    public Message rebirthed = new Message("{prefix} &aDu er blevet genfødt.");
+    public Message statAdded = new Message("{prefix} &aDu har tilføjet &e{amount} &a{stat} til &e{player}");
+    public Message statReceived = new Message("{prefix} &aDu har modtaget &e{amount} &a{stat}");
 }

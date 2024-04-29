@@ -6,6 +6,7 @@ import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
 import dk.nydt.ore.Ore;
 import dk.nydt.ore.commands.interfaces.ICommand;
+import dk.nydt.ore.commands.subcommands.AdminAdd;
 import dk.nydt.ore.commands.subcommands.AdminGenerators;
 import dk.nydt.ore.commands.subcommands.AdminGive;
 import dk.nydt.ore.commands.subcommands.AdminReload;
@@ -24,6 +25,7 @@ public class AdminCommand extends BaseCommand {
         commands.add(new AdminGenerators());
         commands.add(new AdminReload());
         commands.add(new AdminGive());
+        commands.add(new AdminAdd());
         registerCommands();
     }
 
@@ -40,6 +42,7 @@ public class AdminCommand extends BaseCommand {
         Lang lang = (Lang) Ore.getConfigHandler().getConfig("Lang");
         lang.getAvailableCommands().send(player);
         lang.getAvailableCommand().send(player, "{command}", "give");
+        lang.getAvailableCommand().send(player, "{command}", "add");
         lang.getAvailableCommand().send(player, "{command}", "reload");
         lang.getAvailableCommand().send(player, "{command}", "generators");
     }

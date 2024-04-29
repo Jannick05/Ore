@@ -1,11 +1,16 @@
 package dk.nydt.ore.utils;
 
+import com.google.common.base.Strings;
 import dk.nydt.ore.Ore;
 import dk.nydt.ore.database.StoreManager;
 import dk.nydt.ore.objects.User;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class PlaceholderUtils extends PlaceholderExpansion {
 
@@ -64,7 +69,29 @@ public class PlaceholderUtils extends PlaceholderExpansion {
         if(params.equalsIgnoreCase("generators")){
             return user.getGenerators().size()+"";
         }
+        if(params.equalsIgnoreCase("coins")){
+            return 0+"";
+        }
+        if(params.equalsIgnoreCase("gems")){
+            return 0+"";
+        }
+        if(params.equalsIgnoreCase("bar")){
+            return getProgressBar((int) Math.round(user.getXp()), (int) Math.round(user.getXpNeeded()), 10, '•', ChatColor.GREEN, ChatColor.RED);
+        }
+        if(params.equalsIgnoreCase("date")){
+            String pattern = "MM/dd/yyyy";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            return simpleDateFormat.format(new Date());
+        }
 
         return null;
+    }
+
+    private String getProgressBar(int current, int max, int totalBars, char symbol, ChatColor completedColor, ChatColor notCompletedColor) {
+        float percent = (float) current / max;
+        int progressBars = (int) (totalBars * percent);
+
+        return Strings.repeat("" + completedColor + symbol, progressBars)
+                + Strings.repeat("" + notCompletedColor + symbol, totalBars - progressBars);
     }
 }
