@@ -33,4 +33,5 @@ public class Lang extends OkaeriConfig {
     public Message rebirthed = new Message("{prefix} &aDu er blevet genfødt.");
     public Message statAdded = new Message("{prefix} &aDu har tilføjet &e{amount} &a{stat} til &e{player}");
     public Message statReceived = new Message("{prefix} &aDu har modtaget &e{amount} &a{stat}");
+    public Message calculatedPrices = new Message("{prefix} &aPriserne er blevet beregnet.");
 }

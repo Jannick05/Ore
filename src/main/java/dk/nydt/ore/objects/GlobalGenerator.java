@@ -3,6 +3,7 @@ package dk.nydt.ore.objects;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.components.util.ItemNbt;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.var;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -11,23 +12,23 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.List;
 
 public class GlobalGenerator {
-    @Getter
+    @Setter @Getter
     private String name;
-    @Getter
+    @Setter @Getter
     private List<String> lore;
-    @Getter
+    @Setter @Getter
     private int tier;
-    @Getter
+    @Setter @Getter
     private Material material;
-    @Getter
+    @Setter @Getter
     private double buyValue;
-    @Getter
+    @Setter @Getter
     private double dropValue;
-    @Getter
+    @Setter @Getter
     private String dropMaterialName;
-    @Getter
+    @Setter @Getter
     private Material dropMaterial;
-    @Getter
+    @Setter @Getter
     private double dropXP;
 
     public GlobalGenerator(String name, List<String> lore, int tier, Material material, double buyValue, double dropValue, String dropMaterialName, Material dropMaterial, double dropXP) {

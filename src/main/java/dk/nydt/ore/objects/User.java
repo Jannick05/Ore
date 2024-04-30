@@ -69,6 +69,7 @@ public class User extends BaseDaoEnabled<User, Integer> {
         this.xp += xp;
         if(xp >= xpNeeded) {
             this.level++;
+            this.maxGenerators++;
             this.xp = 0;
             this.xpNeeded = this.xpNeeded * 1.5;
         }

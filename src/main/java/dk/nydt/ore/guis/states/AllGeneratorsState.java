@@ -7,15 +7,39 @@ import org.bukkit.entity.Player;
 public class AllGeneratorsState extends GUIState {
 
     @Getter
-    public int randomNumber;
+    public String name;
 
-    public AllGeneratorsState(Player player, int randomNumber) {
+    @Getter
+    public int tier;
+
+    @Getter
+    public double price;
+
+    @Getter
+    public double value;
+
+    @Getter
+    public double xp;
+
+    public AllGeneratorsState(Player player) {
         super(player);
-        this.randomNumber = randomNumber;
+    }
+
+    public AllGeneratorsState(Player player, String name, int tier, double price, double value, double xp) {
+        super(player);
+        this.name = name;
+        this.tier = tier;
+        this.price = price;
+        this.value = value;
+        this.xp = xp;
     }
 
     public void applyPlaceholder(PlaceholderContext placeholder) {
         super.applyPlaceholder(placeholder);
-        placeholder.with("randomNumber", this.randomNumber);
+        placeholder.with("generator_name", this.name);
+        placeholder.with("generator_tier", this.tier);
+        placeholder.with("generator_price", this.price);
+        placeholder.with("generator_value", this.value);
+        placeholder.with("generator_xp", this.xp);
     }
 }
