@@ -8,13 +8,10 @@ import dk.nydt.ore.config.configs.Generators;
 import dk.nydt.ore.guis.MutualGUI;
 import dk.nydt.ore.guis.config.configs.AllGenerators;
 import dk.nydt.ore.guis.states.AllGeneratorsState;
-import dk.nydt.ore.guis.states.PlayerGeneratorsState;
 import dk.nydt.ore.utils.ColorUtils;
 import dk.nydt.ore.utils.GuiUpdater;
 import dk.nydt.ore.utils.ItemStackUtils;
-import dk.nydt.ore.utils.LocationUtils;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

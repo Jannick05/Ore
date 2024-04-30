@@ -4,6 +4,7 @@ import co.aikar.commands.PaperCommandManager;
 import dk.nydt.ore.commands.AdminCommand;
 import dk.nydt.ore.commands.RebirthCommand;
 import dk.nydt.ore.commands.UpgradeCommand;
+import dk.nydt.ore.guis.config.configs.Shop;
 import dk.nydt.ore.config.serializers.GeneratorSerdesPack;
 import dk.nydt.ore.config.serializers.MessageSerdesPack;
 import dk.nydt.ore.config.configs.Config;
@@ -21,7 +22,6 @@ import dk.nydt.ore.utils.PlaceholderUtils;
 import dk.nydt.ore.utils.VaultUtils;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitTask;
 
 public final class Ore extends JavaPlugin {
     @Getter
@@ -56,6 +56,7 @@ public final class Ore extends JavaPlugin {
         //Configs
         configHandler = new ConfigHandler<>();
         configHandler.load("Config", Config.class, "", new MessageSerdesPack());
+        configHandler.load("Shop", Shop.class, "", new GUISerdesPack());
         configHandler.load("Lang", Lang.class, "/lang", new MessageSerdesPack());
         configHandler.load("Generators", Generators.class, "/generators", new GeneratorSerdesPack());
         configHandler.load("AllGenerators", AllGenerators.class, "/guis", new GUISerdesPack());
@@ -84,7 +85,6 @@ public final class Ore extends JavaPlugin {
         new TaskGenerateDrop().runTaskTimerAsynchronously(this, 0, 100);
 
         this.getLogger().info("--------------------");
-        this.getLogger().info("ADDING ALL GENERATORS NOW NISSEMAND 123");
     }
 
     @Override
