@@ -79,6 +79,12 @@ public class ShopMenu extends MutualGUI<Shop, ShopState, PaginatedGui> {
                     });
                     getGui().open(getState().getPlayer());
                 });
+                addItem(7, getConfig().getPreviousPage(), (Consumer<InventoryClickEvent>) event -> {
+                    getGui().previous();
+                });
+                addItem(8, getConfig().getNextPage(), (Consumer<InventoryClickEvent>) event -> {
+                    getGui().next();
+                });
             });
         });
     }
