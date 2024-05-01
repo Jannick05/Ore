@@ -34,4 +34,6 @@ public class Lang extends OkaeriConfig {
     public Message statAdded = new Message("{prefix} &aDu har tilføjet &e{amount} &a{stat} til &e{player}");
     public Message statReceived = new Message("{prefix} &aDu har modtaget &e{amount} &a{stat}");
     public Message calculatedPrices = new Message("{prefix} &aPriserne er blevet beregnet.");
+    public Message buySuccess = new Message("{prefix} &aDu har købt &e{amount}x &a{item} for &e${price}");
+    public Message buyFail = new Message("{prefix} &cDu har ikke råd til &e{amount}x &a{item} for &e${price}");
 }

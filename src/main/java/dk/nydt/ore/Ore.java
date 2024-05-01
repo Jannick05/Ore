@@ -3,6 +3,7 @@ package dk.nydt.ore;
 import co.aikar.commands.PaperCommandManager;
 import dk.nydt.ore.commands.AdminCommand;
 import dk.nydt.ore.commands.RebirthCommand;
+import dk.nydt.ore.commands.ShopCommand;
 import dk.nydt.ore.commands.UpgradeCommand;
 import dk.nydt.ore.guis.config.configs.Shop;
 import dk.nydt.ore.config.serializers.GeneratorSerdesPack;
@@ -68,6 +69,7 @@ public final class Ore extends JavaPlugin {
         new AdminCommand().init();
         new RebirthCommand().init();
         new UpgradeCommand().init();
+        new ShopCommand().init();
 
         //Events
         new GeneratorPlaceEvent(this);
