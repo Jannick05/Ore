@@ -39,7 +39,7 @@ public class GeneratorSerializer implements ObjectSerializer<GlobalGenerator> {
         List<String> lore = data.get("lore", List.class);
         int tier = data.get("tier", Integer.class);
         Material material = Material.valueOf(data.get("material", String.class));
-        double buyValue = data.get("buyValue", Double.class);
+        int buyValue = data.get("buyValue", Integer.class);
         double dropValue = data.get("dropValue", Double.class);
         String dropMaterialName = data.get("dropMaterialName", String.class);
         Material dropMaterial = Material.valueOf(data.get("dropMaterial", String.class));

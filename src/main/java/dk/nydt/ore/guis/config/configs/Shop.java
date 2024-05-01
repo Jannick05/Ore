@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Getter
 public class Shop extends OkaeriConfig implements ConfigCompliance  {
-    public String title = "&dShop";
+    public String title = "&8Shop";
     public ItemStack topDecoration = null;
     public ItemStack bottomDecoration = null;
 
@@ -30,6 +30,12 @@ public class Shop extends OkaeriConfig implements ConfigCompliance  {
             put(Material.DIAMOND_PICKAXE, new HashMap<String, Integer>() {{
                 put("Price", 100);
                 put("Amount", 1);
+            }});
+        }});
+        put("Generators", new HashMap<Material, Map<String, Integer>>() {{
+            put(Material.WOOD, new HashMap<String, Integer>() {{
+                put("Price", 0);
+                put("Amount", 0);
             }});
         }});
     }};
@@ -50,8 +56,8 @@ public class Shop extends OkaeriConfig implements ConfigCompliance  {
             .name(Component.text("&7&o{item_name}"))
             .lore(
                     Component.text("&7"),
-                    Component.text("&8▍ &7Antal: &f{item_price}"),
-                    Component.text("&8▍ &7Pris: &f{item_amount}"),
+                    Component.text("&8▍ &7Pris: &f{item_price}"),
+                    Component.text("&8▍ &7Antal: &f{item_amount}"),
                     Component.text("&7"),
                     Component.text("&8&l【 &7Klik for at købe. &8&l】"),
                     Component.text("&7")

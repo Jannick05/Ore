@@ -17,10 +17,12 @@ import dk.nydt.ore.utils.VaultUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collections;
 import java.util.Set;
+import java.util.function.Consumer;
 
 public class SellChestMenu extends MutualGUI<SellChests, SellChestState, PaginatedGui> {
 
@@ -32,14 +34,14 @@ public class SellChestMenu extends MutualGUI<SellChests, SellChestState, Paginat
     public SellChestMenu(Player player, SellChest sellChest) {
         SellChests sellChests = (SellChests) Ore.getConfigHandler().getConfig("sellchests");
         SellChestState state = new SellChestState(player);
-        PaginatedGui gui = create(sellChests, 5, state, Collections.emptySet());
+        PaginatedGui gui = create(sellChests, 6, state, Collections.emptySet());
 
         this.sellChest = sellChest;
         this.user = StoreManager.getUserStore().getUser(player);
         this.sellableItemConfig = sellChests.getSellableItem().getItem();
 
         disableAllInteractions();
-        buildDecorations();
+        buildBottomDecoration();
         setItems(true);
 
         new GuiUpdater<>(player, this).start();
@@ -57,6 +59,12 @@ public class SellChestMenu extends MutualGUI<SellChests, SellChestState, Paginat
 
     @Override
     public void setItems(boolean init) {
+        addItem(45, getConfig().getPreviousPage(), (Consumer<InventoryClickEvent>) event -> {
+            getGui().previous();
+        });
+        addItem(53, getConfig().getNextPage(), (Consumer<InventoryClickEvent>) event -> {
+            getGui().next();
+        });
         if(!StoreManager.getSellChestStore().getContent(sellChest).isEmpty()) {
             StoreManager.getSellChestStore().getContent(sellChest).forEach(sellable -> {
 

@@ -11,27 +11,29 @@ import dk.nydt.ore.guis.states.AllGeneratorsState;
 import dk.nydt.ore.utils.ColorUtils;
 import dk.nydt.ore.utils.GuiUpdater;
 import dk.nydt.ore.utils.ItemStackUtils;
+import dk.nydt.ore.utils.VaultUtils;
 import net.kyori.adventure.text.Component;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collections;
 import java.util.Set;
+import java.util.function.Consumer;
 
 public class AllGeneratorsMenu extends MutualGUI<AllGenerators, AllGeneratorsState, PaginatedGui> {
     private final ItemStack generatorItemConfig;
     public AllGeneratorsMenu(Player player) {
         AllGenerators allGenerators = (AllGenerators) Ore.getConfigHandler().getConfig("allGenerators");
         AllGeneratorsState state = new AllGeneratorsState(player);
-        PaginatedGui gui = create(allGenerators, 5, state, Collections.emptySet());
+        PaginatedGui gui = create(allGenerators, 6, state, Collections.emptySet());
 
         this.generatorItemConfig = allGenerators.getGeneratorItem().getItem();
 
         disableAllInteractions();
-        buildDecorations();
+        buildBottomDecoration();
         setItems(true);
-
-        new GuiUpdater<>(player, this).start();
     }
 
     @Override
@@ -46,6 +48,12 @@ public class AllGeneratorsMenu extends MutualGUI<AllGenerators, AllGeneratorsSta
 
     @Override
     public void setItems(boolean init) {
+        addItem(45, getConfig().getPreviousPage(), (Consumer<InventoryClickEvent>) event -> {
+            getGui().previous();
+        });
+        addItem(53, getConfig().getNextPage(), (Consumer<InventoryClickEvent>) event -> {
+            getGui().next();
+        });
         Generators generators = (Generators) Ore.getConfigHandler().getConfig("generators");
         generators.getGenerators().forEach((tier, generator) -> {
 
@@ -55,7 +63,15 @@ public class AllGeneratorsMenu extends MutualGUI<AllGenerators, AllGeneratorsSta
             AllGeneratorsState state = new AllGeneratorsState(getState().getPlayer(), name, generator.getTier(), generator.getBuyValue(), generator.getDropValue(), generator.getDropXP());
 
             addPaginatedItem(item, state, event -> {
-                event.getWhoClicked().getInventory().addItem(genItem);
+                Player player = (Player) event.getWhoClicked();
+                if(player.isOp()) {
+                    player.getInventory().addItem(generator.getItemStack());
+                    return;
+                }
+                if(VaultUtils.hasEnough((Player) event.getWhoClicked(), generator.getBuyValue())) {
+                    VaultUtils.subtractBalance((Player) event.getWhoClicked(), generator.getBuyValue());
+                    player.getInventory().addItem(generator.getItemStack());
+                }
             });
         });
     }

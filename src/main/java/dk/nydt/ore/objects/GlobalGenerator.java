@@ -5,10 +5,12 @@ import dev.triumphteam.gui.components.util.ItemNbt;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.var;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GlobalGenerator {
@@ -21,7 +23,7 @@ public class GlobalGenerator {
     @Setter @Getter
     private Material material;
     @Setter @Getter
-    private double buyValue;
+    private int buyValue;
     @Setter @Getter
     private double dropValue;
     @Setter @Getter
@@ -31,7 +33,7 @@ public class GlobalGenerator {
     @Setter @Getter
     private double dropXP;
 
-    public GlobalGenerator(String name, List<String> lore, int tier, Material material, double buyValue, double dropValue, String dropMaterialName, Material dropMaterial, double dropXP) {
+    public GlobalGenerator(String name, List<String> lore, int tier, Material material, int buyValue, double dropValue, String dropMaterialName, Material dropMaterial, double dropXP) {
         this.name = name;
         this.lore = lore;
         this.tier = tier;
@@ -44,10 +46,14 @@ public class GlobalGenerator {
     }
 
     public ItemStack getItemStack() {
+        List<Component> lore = new ArrayList<>();
+        for(String line : this.lore) {
+            lore.add(Component.text(line));
+        }
         return ItemBuilder.from(this.material)
-                .setName(this.name)
-                .setLore(this.lore)
-                .setAmount(1)
+                .name(Component.text(this.name))
+                .lore(lore)
+                .amount(1)
                 .setNbt("generator", String.valueOf(this.tier))
                 .build();
     }

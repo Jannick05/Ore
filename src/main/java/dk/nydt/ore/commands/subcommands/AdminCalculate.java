@@ -29,11 +29,10 @@ public class AdminCalculate extends BaseCommand implements ICommand {
             double value = 40 * Math.pow(1.25, tier - 1) / 12;
             double xp = value / 10;
 
-            String formattedPrice = String.format("%.2f", price);
             String formattedValue = String.format("%.2f", value);
             String formattedXp = String.format("%.2f", xp);
 
-            generator.setBuyValue(Double.parseDouble(formattedPrice.replace(",", ".")));
+            generator.setBuyValue((int) Math.round(price));
             generator.setDropValue(Double.parseDouble(formattedValue.replace(",", ".")));
             generator.setDropXP(Double.parseDouble(formattedXp.replace(",", ".")));
         });

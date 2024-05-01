@@ -46,10 +46,17 @@ public abstract class MutualGUI <ConfigType extends ConfigCompliance, S extends 
     }
 
     public void buildDecorations() {
-        List<Integer> topSlots = IntStream.range(0, 9).boxed().collect(Collectors.toList());
-        List<Integer> bottomSlots = IntStream.range((rows - 1) * 9, rows * 9).boxed().collect(Collectors.toList());
+        buildTopDecoration();
+        buildBottomDecoration();
+    }
 
+    public void buildTopDecoration() {
+        List<Integer> topSlots = IntStream.range(0, 9).boxed().collect(Collectors.toList());
         topSlots.forEach(i -> gui.setItem(i, new GuiItem(config.getTopDecoration())));
+    }
+
+    public void buildBottomDecoration() {
+        List<Integer> bottomSlots = IntStream.range((rows - 1) * 9, rows * 9).boxed().collect(Collectors.toList());
         bottomSlots.forEach(i -> gui.setItem(i, new GuiItem(config.getBottomDecoration())));
     }
 

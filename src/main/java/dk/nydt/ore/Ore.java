@@ -22,6 +22,7 @@ import dk.nydt.ore.tasks.TaskGenerateDrop;
 import dk.nydt.ore.utils.PlaceholderUtils;
 import dk.nydt.ore.utils.VaultUtils;
 import lombok.Getter;
+import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Ore extends JavaPlugin {

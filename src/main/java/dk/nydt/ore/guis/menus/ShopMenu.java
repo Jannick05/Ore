@@ -51,13 +51,29 @@ public class ShopMenu extends MutualGUI<Shop, ShopState, PaginatedGui> {
 
     @Override
     public void setItems(boolean init) {
+        addItem(7, getConfig().getPreviousPage(), (Consumer<InventoryClickEvent>) event -> {
+            getGui().previous();
+        });
+        addItem(8, getConfig().getNextPage(), (Consumer<InventoryClickEvent>) event -> {
+            getGui().next();
+        });
         List<String> isAdded = new ArrayList<>();
         getConfig().getShopItems().forEach((category, items) -> {
             items.forEach((material, data) -> {
                 if(isAdded.contains(category)) return;
                 isAdded.add(category);
                 addPaginatedItem(ItemBuilder.from(material).name(Component.text(ColorUtils.getColored("&7&o"+category))).flags(ItemFlag.HIDE_ATTRIBUTES).build(), getState(), event -> {
+                    if(category.equals("Generators")) {
+                        new AllGeneratorsMenu((Player) event.getWhoClicked()).open();
+                        return;
+                    }
                     getGui().clearPageItems(false);
+                    addItem(7, getConfig().getPreviousPage(), (Consumer<InventoryClickEvent>) event1 -> {
+                        getGui().previous();
+                    });
+                    addItem(8, getConfig().getNextPage(), (Consumer<InventoryClickEvent>) event1 -> {
+                        getGui().next();
+                    });
                     getConfig().getShopItems().get(category).forEach((item, info) -> {
                         ItemStack itemStack = ItemStackUtils.uniteItemStacks(shopItem.clone(), new ItemStack(item, info.get("Amount")));
                         ShopState state = new ShopState(getState().getPlayer(), item.name(), info.get("Price"), info.get("Amount"));
@@ -71,19 +87,7 @@ public class ShopMenu extends MutualGUI<Shop, ShopState, PaginatedGui> {
                             }
                         });
                     });
-                    addItem(7, getConfig().getPreviousPage(), (Consumer<InventoryClickEvent>) event1 -> {
-                        getGui().previous();
-                    });
-                    addItem(8, getConfig().getNextPage(), (Consumer<InventoryClickEvent>) event1 -> {
-                        getGui().next();
-                    });
                     getGui().open(getState().getPlayer());
-                });
-                addItem(7, getConfig().getPreviousPage(), (Consumer<InventoryClickEvent>) event -> {
-                    getGui().previous();
-                });
-                addItem(8, getConfig().getNextPage(), (Consumer<InventoryClickEvent>) event -> {
-                    getGui().next();
                 });
             });
         });

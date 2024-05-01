@@ -14,9 +14,21 @@ import java.util.List;
 
 @Getter
 public class SellChests extends OkaeriConfig implements ConfigCompliance {
-    public String title = "&aSell Chest";
-    public ItemStack topDecoration = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 6);
-    public ItemStack bottomDecoration = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 6);
+    public String title = "&8Sell Chest";
+    public ItemStack topDecoration = null;
+    public ItemStack bottomDecoration = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 7);
+
+    public ItemStack nextPage = ItemBuilder.skull()
+            .texture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGJmOGI2Mjc3Y2QzNjI2NjI4M2NiNWE5ZTY5NDM5NTNjNzgzZTZmZjdkNmEyZDU5ZDE1YWQwNjk3ZTkxZDQzYyJ9fX0=")
+            .name(Component.text("&fNæste side"))
+            .lore(Component.text("&7"), Component.text("&8▍ &7Klik her for at se næste side"), Component.text("&7"))
+            .build();
+
+    public ItemStack previousPage = ItemBuilder.skull()
+            .texture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjc2MjMwYTBhYzUyYWYxMWU0YmM4NDAwOWM2ODkwYTQwMjk0NzJmMzk0N2I0ZjQ2NWI1YjU3MjI4ODFhYWNjNyJ9fX0=")
+            .name(Component.text("&fForrige side"))
+            .lore(Component.text("&7"), Component.text("&8▍ &7Klik her for at se forrige side"), Component.text("&7"))
+            .build();
 
     @Comment("")
     @Comment("Matrialet af dette item er dynamic, og vil ændre sig til sellable item'et.")

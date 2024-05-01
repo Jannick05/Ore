@@ -18,11 +18,13 @@ import dk.nydt.ore.utils.LocationUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 
 public class PlayerGeneratorsMenu extends MutualGUI<PlayerGenerators, PlayerGeneratorsState, PaginatedGui> {
     private final Lang lang = (Lang) Ore.getConfigHandler().getConfig("Lang");
@@ -31,13 +33,13 @@ public class PlayerGeneratorsMenu extends MutualGUI<PlayerGenerators, PlayerGene
     public PlayerGeneratorsMenu(Player player, Player targetPlayer) {
         PlayerGenerators playerGenerators = (PlayerGenerators) Ore.getConfigHandler().getConfig("playergenerators");
         PlayerGeneratorsState state = new PlayerGeneratorsState(player);
-        PaginatedGui gui = create(playerGenerators, 5, state, Collections.emptySet());
+        PaginatedGui gui = create(playerGenerators, 6, state, Collections.emptySet());
 
         this.targetPlayer = targetPlayer;
         this.generatorItemConfig = playerGenerators.getGeneratorItem().getItem();
 
         disableAllInteractions();
-        buildDecorations();
+        buildBottomDecoration();
         setItems(true);
         new GuiUpdater<>(player, this).start();
     }
@@ -54,6 +56,12 @@ public class PlayerGeneratorsMenu extends MutualGUI<PlayerGenerators, PlayerGene
 
     @Override
     public void setItems(boolean init) {
+        addItem(45, getConfig().getPreviousPage(), (Consumer<InventoryClickEvent>) event -> {
+            getGui().previous();
+        });
+        addItem(53, getConfig().getNextPage(), (Consumer<InventoryClickEvent>) event -> {
+            getGui().next();
+        });
         Generators generators = (Generators) Ore.getConfigHandler().getConfig("generators");
         List<UserGenerator> userGenerators = StoreManager.getUserGeneratorStore().getAll("user", StoreManager.getUserStore().getUser(targetPlayer));
         if(!userGenerators.isEmpty()) {
