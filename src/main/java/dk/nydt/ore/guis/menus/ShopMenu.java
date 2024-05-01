@@ -17,6 +17,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class ShopMenu extends MutualGUI<Shop, ShopState, PaginatedGui> {
             items.forEach((material, data) -> {
                 if(isAdded.contains(category)) return;
                 isAdded.add(category);
-                addPaginatedItem(ItemBuilder.from(material).name(Component.text(category)).build(), getState(), event -> {
+                addPaginatedItem(ItemBuilder.from(material).name(Component.text(ColorUtils.getColored("&7&o"+category))).flags(ItemFlag.HIDE_ATTRIBUTES).build(), getState(), event -> {
                     getGui().clearPageItems(false);
                     getConfig().getShopItems().get(category).forEach((item, info) -> {
                         ItemStack itemStack = ItemStackUtils.uniteItemStacks(shopItem.clone(), new ItemStack(item, info.get("Amount")));
